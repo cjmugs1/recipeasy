@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/donate', async (req, res) => {
     try {
-        // donation controller
+        // donation controller --> server/controllers/donationController.js
         const donationResult = await processDonation(req.body);
         res.status(200).json(donationResult);
     } catch (err) {
