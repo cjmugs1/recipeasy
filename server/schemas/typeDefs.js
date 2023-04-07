@@ -2,16 +2,26 @@
 // add definitions for each model
 // make sure to keep Auth resolver
 
-
-
-
-
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Category {
+  type User {
+    username: String
+    name: String
+    email: String
+    password: String
+    userRecipes: [Recipe]
+  }
+
+  type RecipeTag {
     _id: ID
     name: String
+  }
+
+  type Ingredient {
+    name: String
+    quantity: String
+    unit: String
   }
 
   type Recipe {
@@ -19,28 +29,12 @@ const typeDefs = gql`
     name: String
     description: String
     ingredients: [Ingredient]
-    image: String
-    quantity: Int
-    price: Float
-    category: Category
-  }
-
-  type Order {
-    _id: ID
-    purchaseDate: String
-    products: [Product]
-  }
-
-  type User {
-    _id: ID
-    name: String
+    instructions: [String]
+    imageURL: String
+    cookingTime: Number
+    tags: [RecipeTag]
     username: String
-    email: String
-    userRecipes: [Recipe]
-  }
-
-  type Checkout {
-    session: ID
+    createdAt: Date
   }
 
   type Auth {
