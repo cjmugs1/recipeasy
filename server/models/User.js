@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
-const Order = require('./recipe');
+const Order = require('./Recipe');
 
 const userSchema = new Schema({
   firstName: {
