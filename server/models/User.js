@@ -1,8 +1,14 @@
+
+// add a username and language
+// combine firstName and lastName into just name
+// add a "recipeID" array instead of "order" for own recipes
+// -------------------------
+
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const bcrypt = require('bcrypt');
-const Order = require('./Order');
+const bcrypt = require('bcryptjs');
+const Order = require('./recipe');
 
 const userSchema = new Schema({
   firstName: {
