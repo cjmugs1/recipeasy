@@ -34,10 +34,10 @@ const UserSchema = new Schema({
       'Password must contain at least one special character and one number and be 8-16 characters long.',
     }
   },
-  recipes: [
+  recipes: [ //recipe array
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Recipe',
+      ref: 'recipeID',
     },
   ],
 });
