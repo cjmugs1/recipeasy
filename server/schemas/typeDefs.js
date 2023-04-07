@@ -14,10 +14,11 @@ const typeDefs = gql`
     name: String
   }
 
-  type Product {
+  type Recipe {
     _id: ID
     name: String
     description: String
+    ingredients: [Ingredient]
     image: String
     quantity: Int
     price: Float
@@ -32,10 +33,10 @@ const typeDefs = gql`
 
   type User {
     _id: ID
-    firstName: String
-    lastName: String
+    name: String
+    username: String
     email: String
-    orders: [Order]
+    userRecipes: [Recipe]
   }
 
   type Checkout {
