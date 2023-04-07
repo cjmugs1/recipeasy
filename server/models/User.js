@@ -1,22 +1,20 @@
 
-// add a username and language
+// add a username and language (language set to English for MVP)
 // combine firstName and lastName into just name
 // add a "recipeID" array instead of "order" for own recipes
 // -------------------------
 
 const mongoose = require('mongoose');
-
-const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
-const Recipe = require('./recipe');
 
-const userSchema = new Schema({
-  name: {
+const UserSchema = new Schema({
+  // could probably add validators here to make sure random characters aren't put in
+  username: {
     type: String,
     required: true,
     trim: true
   },
-  username: {
+  name: {
     type: String,
     required: true,
     trim: true
@@ -29,13 +27,24 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: true,
-    minlength: 5
+    minlength: 8,
+    maxlength: 16,
+    validate: {
+      validator: function (value) {
+        // regex to require at least one special character in password
+        const regexSpecialChar = /[-!$%^&*()_+|~=`{}[\]:";'<>?,.\/]/;
+        const regexNumber = /\d/;
+        return regexSpecialChar.test(value) && regexNumber.test(value);
+      },
+      message:
+      'Password must contain at least one special character and one number and be 8-16 characters long.',
+    }
   },
   userRecipes: [Recipe.schema]
 });
 
 // set up pre-save middleware to create password
-userSchema.pre('save', async function(next) {
+UserSchema.pre('save', async function(next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
@@ -45,10 +54,10 @@ userSchema.pre('save', async function(next) {
 });
 
 // compare the incoming password with the hashed password
-userSchema.methods.isCorrectPassword = async function(password) {
+UserSchema.methods.isCorrectPassword = async function(password) {
   return await bcrypt.compare(password, this.password);
 };
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('User', UserSchema);
 
 module.exports = User;
