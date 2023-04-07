@@ -1,3 +1,7 @@
+//set up express server with middleware and port
+//possibly serve images
+//look into translations for recipes
+
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
