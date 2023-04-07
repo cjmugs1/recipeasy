@@ -57,15 +57,13 @@ db.once('open', async () => {
   await User.deleteMany();
 
   await User.create({
-    email: 'pamela@testmail.com',
-    password: 'P@ssw0rd123',
-    recipes: [recipes[0]._id],
+    name: "Christopher Dean",
+    email: 'coderchrisdean@gmail.com',
+    password: 'T3st123!',
+    recipes: [recipes[8]._id],
   });
 
-  await User.create({
-    email: 'eholt@testmail.com',
-    password: 'E!ij@h123',
-  });
+
 
   console.log('Users seeded');
 
