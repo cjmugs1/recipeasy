@@ -1,5 +1,7 @@
-const jwt = require('jsonwebtoken');
+// update any information to verify user authentication
 
+const jwt = require('jsonwebtoken');
+// possibly make environment variable for security
 const secret = 'mysecretsshhhhh';
 const expiration = '2h';
 
@@ -26,6 +28,8 @@ module.exports = {
 
     return req;
   },
+
+  // customize signtoken
   signToken: function ({ firstName, email, _id }) {
     const payload = { firstName, email, _id };
 
