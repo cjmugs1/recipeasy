@@ -2,44 +2,39 @@
 // add definitions for each model
 // make sure to keep Auth resolver
 
-
-
-
-
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-  type Category {
+  type User {
+    username: String
+    name: String
+    email: String
+    password: String
+    userRecipes: [Recipe]
+  }
+
+  type RecipeTag {
     _id: ID
     name: String
   }
 
-  type Product {
+  type Ingredient {
+    name: String
+    quantity: String
+    unit: String
+  }
+
+  type Recipe {
     _id: ID
     name: String
     description: String
-    image: String
-    quantity: Int
-    price: Float
-    category: Category
-  }
-
-  type Order {
-    _id: ID
-    purchaseDate: String
-    products: [Product]
-  }
-
-  type User {
-    _id: ID
-    firstName: String
-    lastName: String
-    email: String
-    orders: [Order]
-  }
-
-  type Checkout {
-    session: ID
+    ingredients: [Ingredient]
+    instructions: [String]
+    imageURL: String
+    cookingTime: String
+    tags: [String]
+    username: String
+    createdAt: String
   }
 
   type Auth {
@@ -48,20 +43,20 @@ const typeDefs = gql`
   }
 
   type Query {
-    categories: [Category]
-    products(category: ID, name: String): [Product]
-    product(_id: ID!): Product
-    user: User
-    order(_id: ID!): Order
-    checkout(products: [ID]!): Checkout
+    allUsers: [User]
+    thisUser(userId: ID!): User
+    searchRecipes(username: String, name: String, tags: [String]): Recipe
+    oneRecipe(recipeId: ID!): Recipe
   }
 
   type Mutation {
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    addOrder(products: [ID]!): Order
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
-    updateProduct(_id: ID!, quantity: Int!): Product
+    addUser(name: String!, username: String!, email: String!, password: String!): Auth
+    updateUser(name: String, username: String, email: String, password: String): User
+    addRecipe(name: String!, description: String!, ingredients: [String]!, instructions: String!, cookingTime: String!, username: String!, imageURL: String, tags: [String], createdAt: String!): Recipe
+    updateRecipe(_id: ID!, name: String, description: String, ingredients: [String], instructions: String, cookingTime: String,  imageURL: String, tags: [String]): Recipe
+    removeRecipe(_id: ID!, userId: ID!): User
     login(email: String!, password: String!): Auth
+
   }
 `;
 

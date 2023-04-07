@@ -3,11 +3,17 @@
 // combine firstName and lastName into just name
 // add a "recipeID" array instead of "order" for own recipes
 // -------------------------
-
+const recipe = require('./Recipe')
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
+  // could probably add validators here to make sure random characters aren't put in
+  username: {
+    type: String,
+    required: true,
+    trim: true
+  },
   name: {
     type: String,
     required: true,
@@ -34,12 +40,12 @@ const UserSchema = new Schema({
       'Password must contain at least one special character and one number and be 8-16 characters long.',
     }
   },
-  recipes: [ //recipe array
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'recipeID',
-    },
-  ],
+  userRecipes: [ //recipe array
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'recipe',
+  },
+],
 });
 
 // set up pre-save middleware to create password
