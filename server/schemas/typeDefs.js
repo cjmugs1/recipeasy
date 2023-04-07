@@ -32,7 +32,7 @@ const typeDefs = gql`
     instructions: [String]
     imageURL: String
     cookingTime: Number
-    tags: [RecipeTag]
+    tags: [String]
     username: String
     createdAt: Date
   }
@@ -43,20 +43,20 @@ const typeDefs = gql`
   }
 
   type Query {
-    categories: [Category]
-    products(category: ID, name: String): [Product]
-    product(_id: ID!): Product
     user: User
-    order(_id: ID!): Order
-    checkout(products: [ID]!): Checkout
+    user(username: String!): User
+    recipes(username: String, name: String, _id: ID, tags: [String]): Recipe
+    recipe(_id: ID!): Recipe
   }
 
   type Mutation {
-    addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-    addOrder(products: [ID]!): Order
-    updateUser(firstName: String, lastName: String, email: String, password: String): User
-    updateProduct(_id: ID!, quantity: Int!): Product
+    addUser(name: String!, username: String!, email: String!, password: String!): Auth
+    updateUser(name: String, username: String, email: String, password: String): User
+    addRecipe(name: String!, description: String!, ingredients: [String]!, instructions: String!, cookingTime: Number!, username: String!, imageURL: String, tags: [String], createdAt: Date!): Recipe
+    updateRecipe(_id: ID!, name: String, description: String, ingredients: [String], instructions: String, cookingTime: Number,  imageURL: String, tags: [String]): Product
+    removeRecipe(_id: ID!)
     login(email: String!, password: String!): Auth
+
   }
 `;
 

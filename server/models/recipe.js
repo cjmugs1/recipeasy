@@ -32,7 +32,7 @@ const RecipeSchema = new mongoose.Schema({
     type: Number,
     required: true,
   },
-  tags: [recipeTagSchema],
+  tags: [{type: String}], //[recipeTagSchema],
   username: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'UserName',
