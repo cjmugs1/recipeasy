@@ -1,3 +1,11 @@
+//after building resolvers, match them to the typeDefs
+// add definitions for each model
+// make sure to keep Auth resolver
+
+
+
+
+
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
