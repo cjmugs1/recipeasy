@@ -6,12 +6,32 @@
 
 
 const { AuthenticationError } = require('apollo-server-express');
-const { User, Product, Category, Order } = require('../models');
+const { User, Recipe, Category, Order } = require('../models');
 const { signToken } = require('../utils/auth');
 const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
+
+    allUsers: async () => {
+      return await User.find()
+    },
+
+    thisUser: async (parent, {userId}) => {
+      console.log(userId)
+      return await User.findOne({_id: userId})
+    },
+
+    oneRecipe: async (parent, {recipeId}) => {
+    
+      return await Recipe.findOne({_id: recipeId})
+    },
+
+    searchRecipes: async (parent, {user: username, tags: tags, name: name}) => {
+      return await Recipe.find({user: username, tags: tags, name: name})
+    },
+
+
     categories: async () => {
       return await Category.find();
     },
