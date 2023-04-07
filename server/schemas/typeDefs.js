@@ -31,10 +31,10 @@ const typeDefs = gql`
     ingredients: [Ingredient]
     instructions: [String]
     imageURL: String
-    cookingTime: Number
+    cookingTime: String
     tags: [String]
     username: String
-    createdAt: Date
+    createdAt: String
   }
 
   type Auth {
@@ -43,18 +43,18 @@ const typeDefs = gql`
   }
 
   type Query {
-    user: User
+    allUsers: [User]
     thisUser(userId: ID!): User
-    recipes(username: String, name: String, tags: [String]): Recipe
-    oneRecipe(_id: ID!): Recipe
+    searchRecipes(username: String, name: String, tags: [String]): Recipe
+    oneRecipe(recipeId: ID!): Recipe
   }
 
   type Mutation {
     addUser(name: String!, username: String!, email: String!, password: String!): Auth
     updateUser(name: String, username: String, email: String, password: String): User
-    addRecipe(name: String!, description: String!, ingredients: [String]!, instructions: String!, cookingTime: Number!, username: String!, imageURL: String, tags: [String], createdAt: Date!): Recipe
-    updateRecipe(_id: ID!, name: String, description: String, ingredients: [String], instructions: String, cookingTime: Number,  imageURL: String, tags: [String]): Product
-    removeRecipe(_id: ID!)
+    addRecipe(name: String!, description: String!, ingredients: [String]!, instructions: String!, cookingTime: String!, username: String!, imageURL: String, tags: [String], createdAt: String!): Recipe
+    updateRecipe(_id: ID!, name: String, description: String, ingredients: [String], instructions: String, cookingTime: String,  imageURL: String, tags: [String]): Recipe
+    removeRecipe(_id: ID!, userId: ID!): User
     login(email: String!, password: String!): Auth
 
   }
