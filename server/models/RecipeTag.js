@@ -2,16 +2,14 @@
 
 const mongoose = require('mongoose');
 
-const { Schema } = mongoose;
-
-const categorySchema = new Schema({
+const RecipeTagSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    trim: true
-  }
+    unique: true,
+  },
 });
 
-const Category = mongoose.model('Category', categorySchema);
+const RecipeTag = mongoose.model('RecipeTag', RecipeTagSchema);
 
-module.exports = Category;
+module.exports = RecipeTag;
