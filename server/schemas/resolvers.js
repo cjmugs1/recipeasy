@@ -1,3 +1,10 @@
+// replace const for models 
+// need query for User by name and ID and Recipes by name, ID and tag name
+// need mutation for User: add, update, delete and Recipes: add, update, delete
+// delete recipe from user's saved recipes array
+
+
+
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Product, Category, Order } = require('../models');
 const { signToken } = require('../utils/auth');
