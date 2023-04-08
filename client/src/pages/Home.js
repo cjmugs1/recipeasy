@@ -1,3 +1,9 @@
+//make this the recipe display/broswer page
+//importing renamed components
+  //recipe item
+  //---etc
+  
+
 import React from "react";
 import ProductList from "../components/ProductList";
 import CategoryMenu from "../components/CategoryMenu";
