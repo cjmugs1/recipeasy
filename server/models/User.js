@@ -40,6 +40,8 @@ const UserSchema = new mongoose.Schema({
       'Password must contain at least one special character and one number and be 8-16 characters long.',
     }
   },
+  languages: {
+    type: [String],
   userRecipes: [ //recipe array
   {
     type: mongoose.Schema.Types.ObjectId,
