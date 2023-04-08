@@ -14,9 +14,12 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.22"
   },
   "dependencies": {
-    "apollo-server-express": "^2.15.0"
+    "apollo-server-express": "^2.15.0",
+    "dotenv": "^16.0.3",
+    "multer": "^1.4.5-lts.1"
   }
 }
