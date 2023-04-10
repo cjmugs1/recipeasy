@@ -6,7 +6,13 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-const UserSchema = new Schema({
+const UserSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    trim: true,
+    unique: true,
+  },
   name: {
     type: String,
     required: true,
@@ -62,7 +68,7 @@ const UserSchema = new Schema({
     //recipe array
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "recipeID",
+      ref: "Recipe",
     },
   ],
 });

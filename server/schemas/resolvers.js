@@ -13,7 +13,7 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const resolvers = {
   Query: {
     allUsers: async () => {
-      return await User.find()
+      return await User.find().populate('recipes')
     },
 
     singleUser: async (parent, {userId}) => {
@@ -140,18 +140,29 @@ const resolvers = {
 
       return { token, user };
     },
-//     addOrder: async (parent, { products }, context) => {
-//       console.log(context);
-//       if (context.user) {
-//         const order = new Order({ products });
+    addRecipe: async (parent, args, context) => {
 
-//         await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+      // ------------
+      // test purposes     
+      const testUser = {
+        name: "test",
+        _id: "643079e4d34ddeec19b3d46f"
+      }
+      // ------------
 
-//         return order;
-//       }
+      context.user = testUser
+      if (context.user) {
+        const userId = context.user._id
+        // console.log(args)
+        const recipe = await Recipe.create({...args, userId});
+        console.log(recipe)
+        const updatedUser = await User.findByIdAndUpdate(userId, { $push: { recipes: recipe } }, {new: true}).populate('recipes');
+        console.log(updatedUser)
+        return updatedUser;
+      }
 
-//       throw new AuthenticationError('Not logged in');
-//     },
+      throw new AuthenticationError('Not logged in');
+    },
 //     updateUser: async (parent, args, context) => {
 //       if (context.user) {
 //         return await User.findByIdAndUpdate(context.user._id, args, { new: true });
