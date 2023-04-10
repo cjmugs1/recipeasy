@@ -1,0 +1,1 @@
+// component for displaying app's logo

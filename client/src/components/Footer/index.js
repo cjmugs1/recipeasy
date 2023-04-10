@@ -1,0 +1,1 @@
+// footer component w/ links, copyright, and social media icons

@@ -1,0 +1,12 @@
+/* styling for ThemeToggle/themeToggle.css */
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+}
+
+.theme-switch {
+    margin-left: 10px;
+}
