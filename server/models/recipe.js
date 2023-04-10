@@ -26,7 +26,7 @@ const RecipeSchema = new mongoose.Schema({
 
   instructions: [String],
 
-  imageURl: String,
+  imageURL: String,
 
   cookingTime: {
     type: Number,

@@ -12,21 +12,24 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
   Query: {
-
     allUsers: async () => {
       return await User.find()
     },
 
-    thisUser: async (parent, {userId}) => {
+    singleUser: async (parent, {userId}) => {
       console.log(userId)
       return await User.findOne({_id: userId}).populate('userRecipes')
     },
 
-    oneRecipe: async (parent, {recipeId}) => {
-    
+    allRecipes: async (parent, {recipeId}) => {
+      return await Recipe.find()
+    },
+
+    singleRecipe: async (parent, {recipeId}) => {
       return await Recipe.findOne({_id: recipeId})
     },
 
+    // for the main search page where users can search by username, tags, or name
     searchRecipes: async (parent, {username, tags, name}) => {
       // select params that were inputed
       const params = {}

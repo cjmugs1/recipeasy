@@ -44,9 +44,10 @@ const typeDefs = gql`
 
   type Query {
     allUsers: [User]
-    thisUser(userId: ID!): User
+    singleUser(userId: ID!): User
+    allRecipes: [Recipe]
+    singleRecipe(recipeId: ID!): Recipe
     searchRecipes(username: String, name: String, tags: [String]): Recipe
-    oneRecipe(recipeId: ID!): Recipe
   }
 
   type Mutation {
