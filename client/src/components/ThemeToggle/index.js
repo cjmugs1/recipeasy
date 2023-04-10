@@ -4,6 +4,8 @@ import React, { useContext } from 'react';
 import { Switch } from 'antd';
 import { ThemeContext } from '../../context/ThemeContext';
 import './themeToggle.css';
+import 'antd/dist/antd.css';
+
 
 const ThemeToggle = () => {
     const { theme, setTheme } = useContext(ThemeContext);
