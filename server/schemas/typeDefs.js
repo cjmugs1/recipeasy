@@ -6,11 +6,12 @@ const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
   type User {
+    _id: ID
     username: String
     name: String
     email: String
     password: String
-    userRecipes: [Recipe]
+    recipes: [Recipe]
   }
 
   type RecipeTag {
@@ -23,23 +24,39 @@ const typeDefs = gql`
     quantity: String
     unit: String
   }
+  
+  type CookingTime {
+    amount: String
+    unit: String
+  }
 
   type Recipe {
     _id: ID
+    userId: User
     name: String
     description: String
     ingredients: [Ingredient]
     instructions: [String]
     imageURL: String
-    cookingTime: String
+    cookingTime: CookingTime
     tags: [String]
-    username: String
     createdAt: String
   }
 
   type Auth {
     token: ID
     user: User
+  }
+
+  input IngredientInput {
+    name: String
+    quantity: String
+    unit: String
+  }
+
+  input TimeInput {
+    amount: String
+    unit: String
   }
 
   type Query {
@@ -51,12 +68,52 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(name: String!, username: String!, email: String!, password: String!): Auth
-    updateUser(name: String, username: String, email: String, password: String): User
-    addRecipe(name: String!, description: String!, ingredients: [String]!, instructions: String!, cookingTime: String!, username: String!, imageURL: String, tags: [String], createdAt: String!): Recipe
-    updateRecipe(_id: ID!, name: String, description: String, ingredients: [String], instructions: String, cookingTime: String,  imageURL: String, tags: [String]): Recipe
-    removeRecipe(_id: ID!, userId: ID!): User
-    login(email: String!, password: String!): Auth
+    addUser(
+      name: String!, 
+      username: String, 
+      email: String!, 
+      password: String!
+    ): Auth
+    
+    updateUser(
+      name: String, 
+      username: String, 
+      email: String, 
+      password: String
+    ): User
+    
+    addRecipe(
+      userId: ID!,
+      name: String!, 
+      description: String!, 
+      ingredients: [IngredientInput]!, 
+      instructions: [String]!, 
+      cookingTime: TimeInput!, 
+      imageURL: String, 
+      tags: [String]
+    ): User
+    
+    updateRecipe(
+      recipeId: ID!, 
+      name: String, 
+      description: 
+      String, 
+      ingredients: [String], 
+      instructions: [String], 
+      cookingTime: String,  
+      imageURL: String, 
+      tags: [String]
+    ): Recipe
+
+    removeRecipe(
+      recipeId: ID!, 
+      chefId: ID!
+    ): User
+    
+    login(
+      email: String!, 
+      password: String!
+    ): Auth
 
   }
 `;

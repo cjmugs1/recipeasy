@@ -3,8 +3,6 @@
 // need mutation for User: add, update, delete and Recipes: add, update, delete
 // delete recipe from user's saved recipes array
 
-
-
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Recipe } = require('../models');
 const { signToken } = require('../utils/auth');
@@ -18,11 +16,11 @@ const resolvers = {
 
     singleUser: async (parent, {userId}) => {
       console.log(userId)
-      return await User.findOne({_id: userId}).populate('userRecipes')
+      return await User.findOne({_id: userId}).populate('recipes')
     },
 
-    allRecipes: async (parent, {recipeId}) => {
-      return await Recipe.find()
+    allRecipes: async (parent, args) => {
+      return await Recipe.find().populate('userId')
     },
 
     singleRecipe: async (parent, {recipeId}) => {
@@ -48,54 +46,6 @@ const resolvers = {
       return await Recipe.find(params)
     },
 
-    // categories: async () => {
-    //   return await Category.find();
-    // },
-
-    // products: async (parent, { category, name }) => {
-    //   const params = {};
-
-    //   if (category) {
-    //     params.category = category;
-    //   }
-
-    //   if (name) {
-    //     params.name = {
-    //       $regex: name
-    //     };
-    //   }
-
-    //   return await Product.find(params).populate('category');
-    // },
-    // product: async (parent, { _id }) => {
-    //   return await Product.findById(_id).populate('category');
-    // },
-    // user: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const user = await User.findById(context.user._id).populate({
-    //       path: 'orders.products',
-    //       populate: 'category'
-    //     });
-
-    //     user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
-
-    //     return user;
-    //   }
-
-    //   throw new AuthenticationError('Not logged in');
-    // },
-    // order: async (parent, { _id }, context) => {
-    //   if (context.user) {
-    //     const user = await User.findById(context.user._id).populate({
-    //       path: 'orders.products',
-    //       populate: 'category'
-    //     });
-
-    //     return user.orders.id(_id);
-    //   }
-
-    //   throw new AuthenticationError('Not logged in');
-    // },
     // checkout: async (parent, args, context) => {
     //   const url = new URL(context.headers.referer).origin;
     //   const order = new Order({ products: args.products });
@@ -133,6 +83,7 @@ const resolvers = {
     //   return { session: session.id };
     // }
   },
+
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -140,47 +91,115 @@ const resolvers = {
 
       return { token, user };
     },
-//     addOrder: async (parent, { products }, context) => {
-//       console.log(context);
-//       if (context.user) {
-//         const order = new Order({ products });
+    
+    updateUser: async (parent, args, context) => {
+      
+      // ------------
+      // test purposes     
+      const testUser = {
+        name: "test",
+        _id: "643079e4d34ddeec19b3d46f"
+      }
+      // ------------
+      context.user = testUser
+      if (context.user) {
+        const updatedUser = await User.findByIdAndUpdate(context.user._id, args, { new: true });
+        console.log(updatedUser)
+        return updatedUser
+      }
 
-//         await User.findByIdAndUpdate(context.user._id, { $push: { orders: order } });
+      throw new AuthenticationError('Not logged in');
+    },
 
-//         return order;
-//       }
+    addRecipe: async (parent, args, context) => {
 
-//       throw new AuthenticationError('Not logged in');
-//     },
-//     updateUser: async (parent, args, context) => {
-//       if (context.user) {
-//         return await User.findByIdAndUpdate(context.user._id, args, { new: true });
-//       }
+      // ------------
+      // test purposes     
+      const testUser = {
+        name: "test",
+        _id: "643079e4d34ddeec19b3d46f"
+      }
+      context.user = testUser
+      // ------------
 
-//       throw new AuthenticationError('Not logged in');
-//     },
-//     updateProduct: async (parent, { _id, quantity }) => {
-//       const decrement = Math.abs(quantity) * -1;
+     
+      if (context.user) {
+        const userId = context.user._id
+        console.log({...args, userId})
+        const recipe = await Recipe.create({...args, userId});
+        console.log(recipe)
+        const updatedUser = await User.findByIdAndUpdate(userId, { $push: { recipes: recipe } }, {new: true}).populate('recipes');
+        
+        return updatedUser;
+      }
 
-//       return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
-//     },
-//     login: async (parent, { email, password }) => {
-//       const user = await User.findOne({ email });
+      throw new AuthenticationError('Not logged in');
+    },
 
-//       if (!user) {
-//         throw new AuthenticationError('Incorrect credentials');
-//       }
+    // // args must have all the preexisting fields for this to work
+    // updateRecipe: async (parent, args, context) => {
 
-//       const correctPw = await user.isCorrectPassword(password);
+    //   // ------------
+    //   // test purposes     
+    //   const testUser = {
+    //     name: "test",
+    //     _id: "643079e4d34ddeec19b3d46f"
+    //   }
+    //   context.user = testUser
+    //   // ------------
 
-//       if (!correctPw) {
-//         throw new AuthenticationError('Incorrect credentials');
-//       }
+    //   if (context.user) {
+    //     const userId = context.user._id
 
-//       const token = signToken(user);
+    //     console.log(args)
+    //     // const updatedRecipe = await Recipe.findByIdAndUpdate(_id, 
+    //     //   {
 
-//       return { token, user };
-//     }
+    //     //   }
+    //     // )
+    //   }
+
+    // }
+
+    removeRecipe: async (parent, {recipeId, chefId}, context) => {
+      const testUser = {
+        name: "test",
+        _id: "643079e4d34ddeec19b3d46f"
+      }
+      context.user = testUser
+      // ------------
+
+     
+      if (context.user) {
+        const userId = context.user._id
+
+        if (chefId === userId) {
+
+          await Recipe.deleteOne({_id: recipeId})
+
+          const updatedUser = await User.findOneAndUpdate({_id: userId}, {$pull: {recipe: {_id: recipeId}}}).populate('recipes')
+          return updatedUser
+        }
+      }
+
+    },   
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
+    }
   }
 };
 
