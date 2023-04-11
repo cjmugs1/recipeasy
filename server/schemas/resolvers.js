@@ -3,8 +3,6 @@
 // need mutation for User: add, update, delete and Recipes: add, update, delete
 // delete recipe from user's saved recipes array
 
-
-
 const { AuthenticationError } = require('apollo-server-express');
 const { User, Recipe } = require('../models');
 const { signToken } = require('../utils/auth');
@@ -13,12 +11,12 @@ const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 const resolvers = {
   Query: {
     allUsers: async () => {
-      return await User.find().populate('recipes')
+      return await User.find()
     },
 
     singleUser: async (parent, {userId}) => {
       console.log(userId)
-      return await User.findOne({_id: userId}).populate('userRecipes')
+      return await User.findOne({_id: userId}).populate('recipes')
     },
 
     allRecipes: async (parent, {recipeId}) => {
@@ -48,54 +46,6 @@ const resolvers = {
       return await Recipe.find(params)
     },
 
-    // categories: async () => {
-    //   return await Category.find();
-    // },
-
-    // products: async (parent, { category, name }) => {
-    //   const params = {};
-
-    //   if (category) {
-    //     params.category = category;
-    //   }
-
-    //   if (name) {
-    //     params.name = {
-    //       $regex: name
-    //     };
-    //   }
-
-    //   return await Product.find(params).populate('category');
-    // },
-    // product: async (parent, { _id }) => {
-    //   return await Product.findById(_id).populate('category');
-    // },
-    // user: async (parent, args, context) => {
-    //   if (context.user) {
-    //     const user = await User.findById(context.user._id).populate({
-    //       path: 'orders.products',
-    //       populate: 'category'
-    //     });
-
-    //     user.orders.sort((a, b) => b.purchaseDate - a.purchaseDate);
-
-    //     return user;
-    //   }
-
-    //   throw new AuthenticationError('Not logged in');
-    // },
-    // order: async (parent, { _id }, context) => {
-    //   if (context.user) {
-    //     const user = await User.findById(context.user._id).populate({
-    //       path: 'orders.products',
-    //       populate: 'category'
-    //     });
-
-    //     return user.orders.id(_id);
-    //   }
-
-    //   throw new AuthenticationError('Not logged in');
-    // },
     // checkout: async (parent, args, context) => {
     //   const url = new URL(context.headers.referer).origin;
     //   const order = new Order({ products: args.products });
@@ -133,6 +83,7 @@ const resolvers = {
     //   return { session: session.id };
     // }
   },
+  
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -140,6 +91,26 @@ const resolvers = {
 
       return { token, user };
     },
+    
+    updateUser: async (parent, args, context) => {
+      
+      // ------------
+      // test purposes     
+      const testUser = {
+        name: "test",
+        _id: "643079e4d34ddeec19b3d46f"
+      }
+      // ------------
+      context.user = testUser
+      if (context.user) {
+        const updatedUser = await User.findByIdAndUpdate(context.user._id, args, { new: true });
+        console.log(updatedUser)
+        return updatedUser
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
+
     addRecipe: async (parent, args, context) => {
 
       // ------------
@@ -163,13 +134,7 @@ const resolvers = {
 
       throw new AuthenticationError('Not logged in');
     },
-//     updateUser: async (parent, args, context) => {
-//       if (context.user) {
-//         return await User.findByIdAndUpdate(context.user._id, args, { new: true });
-//       }
-
-//       throw new AuthenticationError('Not logged in');
-//     },
+    
 //     updateProduct: async (parent, { _id, quantity }) => {
 //       const decrement = Math.abs(quantity) * -1;
 
