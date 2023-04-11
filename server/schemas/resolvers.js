@@ -19,8 +19,8 @@ const resolvers = {
       return await User.findOne({_id: userId}).populate('recipes')
     },
 
-    allRecipes: async (parent, {recipeId}) => {
-      return await Recipe.find()
+    allRecipes: async (parent, args) => {
+      return await Recipe.find().populate('userId')
     },
 
     singleRecipe: async (parent, {recipeId}) => {
@@ -83,7 +83,7 @@ const resolvers = {
     //   return { session: session.id };
     // }
   },
-  
+
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);
@@ -119,44 +119,87 @@ const resolvers = {
         name: "test",
         _id: "643079e4d34ddeec19b3d46f"
       }
+      context.user = testUser
       // ------------
 
-      context.user = testUser
+     
       if (context.user) {
         const userId = context.user._id
-        // console.log(args)
+        console.log({...args, userId})
         const recipe = await Recipe.create({...args, userId});
         console.log(recipe)
         const updatedUser = await User.findByIdAndUpdate(userId, { $push: { recipes: recipe } }, {new: true}).populate('recipes');
-        console.log(updatedUser)
+        
         return updatedUser;
       }
 
       throw new AuthenticationError('Not logged in');
     },
-    
-//     updateProduct: async (parent, { _id, quantity }) => {
-//       const decrement = Math.abs(quantity) * -1;
 
-//       return await Product.findByIdAndUpdate(_id, { $inc: { quantity: decrement } }, { new: true });
-//     },
-//     login: async (parent, { email, password }) => {
-//       const user = await User.findOne({ email });
+    // // args must have all the preexisting fields for this to work
+    // updateRecipe: async (parent, args, context) => {
 
-//       if (!user) {
-//         throw new AuthenticationError('Incorrect credentials');
-//       }
+    //   // ------------
+    //   // test purposes     
+    //   const testUser = {
+    //     name: "test",
+    //     _id: "643079e4d34ddeec19b3d46f"
+    //   }
+    //   context.user = testUser
+    //   // ------------
 
-//       const correctPw = await user.isCorrectPassword(password);
+    //   if (context.user) {
+    //     const userId = context.user._id
 
-//       if (!correctPw) {
-//         throw new AuthenticationError('Incorrect credentials');
-//       }
+    //     console.log(args)
+    //     // const updatedRecipe = await Recipe.findByIdAndUpdate(_id, 
+    //     //   {
 
-//       const token = signToken(user);
+    //     //   }
+    //     // )
+    //   }
 
-//       return { token, user };
-//     }
+    // }
+
+    removeRecipe: async (parent, {recipeId, chefId}, context) => {
+      const testUser = {
+        name: "test",
+        _id: "643079e4d34ddeec19b3d46f"
+      }
+      context.user = testUser
+      // ------------
+
+     
+      if (context.user) {
+        const userId = context.user._id
+
+        if (chefId === userId) {
+
+          await Recipe.deleteOne({_id: recipeId})
+
+          const updatedUser = await User.findOneAndUpdate({_id: userId}, {$pull: {recipe: {_id: recipeId}}}).populate('recipes')
+          return updatedUser
+        }
+      }
+
+    },   
+    login: async (parent, { email, password }) => {
+      const user = await User.findOne({ email });
+
+      if (!user) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const correctPw = await user.isCorrectPassword(password);
+
+      if (!correctPw) {
+        throw new AuthenticationError('Incorrect credentials');
+      }
+
+      const token = signToken(user);
+
+      return { token, user };
+    }
   }
 };
 

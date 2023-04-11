@@ -25,7 +25,7 @@ const timeSchema = new mongoose.Schema({
 })
 
 const RecipeSchema = new mongoose.Schema({
-  user: {
+  userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
   },

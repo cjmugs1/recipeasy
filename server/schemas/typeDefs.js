@@ -32,7 +32,7 @@ const typeDefs = gql`
 
   type Recipe {
     _id: ID
-    user: ID
+    userId: User
     name: String
     description: String
     ingredients: [Ingredient]
@@ -94,7 +94,7 @@ const typeDefs = gql`
     ): User
     
     updateRecipe(
-      _id: ID!, 
+      recipeId: ID!, 
       name: String, 
       description: 
       String, 
@@ -103,11 +103,11 @@ const typeDefs = gql`
       cookingTime: String,  
       imageURL: String, 
       tags: [String]
-    ): User
+    ): Recipe
 
     removeRecipe(
-      _id: ID!, 
-      userId: ID!
+      recipeId: ID!, 
+      chefId: ID!
     ): User
     
     login(
