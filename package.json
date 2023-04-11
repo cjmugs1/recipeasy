@@ -18,6 +18,7 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
+    "@ant-design/icons": "^5.0.1",
     "apollo-server-express": "^2.15.0",
     "dotenv": "^16.0.3",
     "multer": "^1.4.5-lts.1"
