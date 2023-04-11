@@ -1,3 +1,5 @@
+// component for displaying delete button on saved recipes or any other component that needs a delete button
+
 import React from "react";
 
 // The ...props means, spread all of the passed props onto this element

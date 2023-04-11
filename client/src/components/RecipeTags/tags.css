@@ -1,0 +1,17 @@
+/* styling for all RecipeTags */
+
+/* All Tags */
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+/* CookingMethod */
+/* Cuisine */
+/* Diet */
+/* DishType */
+/* MealType */
+/* Occasion */
+/* DietaryPreferences */
+
+
