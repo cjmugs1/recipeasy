@@ -1,5 +1,5 @@
 // update imports 
-const Recipe = require('./Recipe')
+const Recipe = require('./recipe')
 const RecipeTag = require('./RecipeTag')
 const User = require('./User');
 
