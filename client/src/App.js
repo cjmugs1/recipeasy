@@ -1,4 +1,4 @@
-import React from 'react';
+import { React, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
@@ -32,13 +32,17 @@ const client = new ApolloClient({
 console.log(client)
 
 function App() {
+
+  const [loggedIn, setLoggedIn] = useState(true);
+
   return (
     <ApolloProvider client={client}>
       <Router>
         <div>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
+            {loggedIn ? <Route path="/" element={<Home />} /> : <Route path="/" element={<Login />} /> }
+            {/* <Route path="/" element={<Login />} />
+            <Route path="/home" element={<Home />} /> */}
             <Route path="/signup" element={<Signup />} />
             {/* <Route path="/donation" element={<Success />} /> */}
             <Route path="/profile" element={<Profile />} />
