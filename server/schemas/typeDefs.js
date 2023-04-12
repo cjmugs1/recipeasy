@@ -14,7 +14,7 @@ const typeDefs = gql`
     recipes: [Recipe]
   }
 
-  type RecipeTag {
+  input RecipeTag {
     _id: ID
     name: String
   }
@@ -64,7 +64,7 @@ const typeDefs = gql`
     singleUser(userId: ID!): User
     allRecipes: [Recipe]
     singleRecipe(recipeId: ID!): Recipe
-    searchRecipes(username: String, name: String, tags: [String]): Recipe
+    searchRecipes(username: String, name: String, tags: [String]): [Recipe]
   }
 
   type Mutation {
@@ -90,7 +90,7 @@ const typeDefs = gql`
       instructions: [String]!, 
       cookingTime: TimeInput!, 
       imageURL: String, 
-      tags: [String]
+      tags: [RecipeTag]
     ): User
     
     updateRecipe(
@@ -109,7 +109,7 @@ const typeDefs = gql`
       recipeId: ID!, 
       chefId: ID!
     ): User
-    
+
     login(
       email: String!, 
       password: String!

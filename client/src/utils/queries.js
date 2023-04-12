@@ -3,64 +3,62 @@
 import { gql } from '@apollo/client';
 
 export const QUERY_ALL_RECIPES = gql`
-  {
+  query getAllRecipes {
+    allRecipes {
+      _id
+      name
+      instructions
+      description
+      userId {
+      _id
+    }
+  }
+}
+`;
+
+export const QUERY_RECIPE_BY_ID = gql`
+query getSingleRecipe($recipeId: ID!) {
+  singleRecipe(recipeId: $recipeId) {
+    name
+    cookingTime {
+      amount
+      unit
+    }
+  }
+}
+`;
+
+export const QUERY_SEARCH_RECIPE = gql`
+query searchRecipes($name: String, $username: String, $tags: [String]) {
+  searchRecipes(name: $name, username: $username, tags: $tags) {
+    name
+    _id
+    imageURL
+    cookingTime {
+      amount
+      unit
+    }
+    tags
+  }
+}
+`
+
+export const QUERY_USER_BY_ID = gql`
+query getSingleUser($userId: ID!) {
+  singleUser(userId: $userId) {
+    username
     recipes {
-      _id
-      name
-      description
-      ingredients
-      instructions
-      imageURL
-      tags
-      username
       createdAt
-    }
-  }
-`;
-
-export const QUERY_RECIPE = gql`
-  query getSingleRecipe($recipe: ID) {
-    recipe {
-      _id
-      name
       description
-      ingredients
-      instructions
-      imageURL
-      tags
-      username
-      createdAt
+      ingredients {
+        name
+        quantity
+        unit
       }
-    }
-  }
-`;
-
-// export const QUERY_CHECKOUT = gql`
-//   query getCheckout($products: [ID]!) {
-//     checkout(products: $products) {
-//       session
-//     }
-//   }
-// `;
-
-// export const QUERY_CATEGORIES = gql`
-//   {
-//     categories {
-//       _id
-//       name
-//     }
-//   }
-// `;
-
-export const QUERY_USER = gql`
-  {
-    user {
       name
-      email
-      languages
-      recipes {
-        _id
-      }
+      _id
     }
+    _id
   }
-`;
+}
+`
