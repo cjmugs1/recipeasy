@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
     maxlength: 16,
     validate: {
       validator: function (value) {
-        // regex to require at least one special character in password
+        // regex to require at least one special character and number in password
         const regexSpecialChar = /[-!$%^&*()_+|~=`{}[\]:";'<>?,.\/]/;
         const regexNumber = /\d/;
         return regexSpecialChar.test(value) && regexNumber.test(value);
