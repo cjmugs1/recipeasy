@@ -12,7 +12,7 @@ import Recipes from './pages/Recipes';
 // import NoMatch from './pages/NoMatch';
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'graphql',
 });
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
@@ -28,6 +28,8 @@ const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
+
+console.log(client)
 
 function App() {
   return (
