@@ -1,27 +1,32 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  createHttpLink,
+} from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Signup from './pages/Signup';
-import Success from './pages/Success';
-import Profile from './pages/Profile';
-import Search from './pages/Search';
-import Sider from './components/Sider';
-import Recipes from './pages/Recipes';
-import NoMatch from './pages/NoMatch';
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Success from "./pages/Success";
+import Profile from "./pages/Profile";
+import Search from "./pages/Search";
+import Sider from "./components/Sider";
+import Recipes from "./pages/Recipes";
+import NoMatch from "./pages/NoMatch";
 
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: "/graphql",
 });
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem("id_token");
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
@@ -36,23 +41,22 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-        <Routes>
-  <Route path="/" element={<Home />} />
-  <Route path="/login" element={<Login />} />
-  <Route path="/signup" element={<Signup />} />
-  <Route path="/donation" element={<Success />} />
-  <Route path="/profile" element={<Profile />} />
-  <Route path="/search" element={<Search />} />
-  <Route path="/sider" element={<Sider />} />
-  <Route path="/recipes/:id" element={<Recipes />} />
-  <Route path="/recipes" element={<Recipes />} />
-  <Route path="*" element={<NoMatch />} />
-</Routes>
-
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/donation" element={<Success />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/sider" element={<Sider />} />
+            <Route path="/recipes/:id" element={<Recipes />} />
+            <Route path="/recipes" element={<Recipes />} />
+            <Route path="*" element={<NoMatch />} />
+          </Routes>
         </div>
       </Router>
     </ApolloProvider>
   );
-};
+}
 
 export default App;
