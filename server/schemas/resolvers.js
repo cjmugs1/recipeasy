@@ -29,6 +29,7 @@ const resolvers = {
       return await Recipe.findOne({_id: recipeId})
     },
 
+    
     // for the main search page where users can search by username, tags, or name
     searchRecipes: async (parent, {username, tags, name}) => {
       // select params that were inputed
