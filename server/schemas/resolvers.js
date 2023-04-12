@@ -43,8 +43,9 @@ const resolvers = {
       if (name) {
         params.name = name
       }
-      
-      return await Recipe.find(params)
+      const recipes = await Recipe.find(params);
+      console.log(recipes)
+      return recipes
     },
 
     // checkout: async (parent, args, context) => {
