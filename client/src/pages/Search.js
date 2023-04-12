@@ -1,6 +1,6 @@
 // search for recipes
 import React, { useState, useEffect } from 'react';
-import { Row, Col, Input, Tag } from 'antd';
+import { Input, Tag } from 'antd';
 import 'antd/dist/antd.css';
 
 const Search = () => {
