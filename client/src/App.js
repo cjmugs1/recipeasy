@@ -1,7 +1,8 @@
-import { React, useState } from 'react';
+import { React, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { loggedIn } from './utils/auth';
 
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -9,11 +10,13 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Recipes from './pages/Recipes';
+import { useRecipeasyReducer } from './utils/reducers';
 // import NoMatch from './pages/NoMatch';
 
 const httpLink = createHttpLink({
   uri: 'graphql',
 });
+
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
   return {
@@ -33,16 +36,23 @@ console.log(client)
 
 function App() {
 
-  const [loggedIn, setLoggedIn] = useState(true);
+  const loggedIn = loggedIn();
+
+  useEffect(() => {
+  }, [loggedIn]);
 
   return (
     <ApolloProvider client={client}>
       <Router>
         <div>
+        {!loggedIn ? 
           <Routes>
-            {loggedIn ? <Route path="/" element={<Home />} /> : <Route path="/" element={<Login />} /> }
-            {/* <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Home />} /> */}
+            <Route path="/" element={<Login />} />
+          </Routes>
+          :
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             {/* <Route path="/donation" element={<Success />} /> */}
             <Route path="/profile" element={<Profile />} />
@@ -51,6 +61,7 @@ function App() {
             <Route path="/recipes" element={<Recipes />} />
             {/* <Route path="*" element={<NoMatch />} /> */}
           </Routes>
+        }       
         </div>
       </Router>
     </ApolloProvider>
