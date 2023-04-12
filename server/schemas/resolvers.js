@@ -192,15 +192,21 @@ const resolvers = {
         throw new AuthenticationError('Incorrect credentials');
       }
 
-      const correctPw = await user.isCorrectPassword(password);
+      try {
+        const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
         throw new AuthenticationError('Incorrect credentials');
       }
 
       const token = signToken(user);
+      console.log("signed in!")
 
       return { token, user };
+      } catch(err) {
+        console.log(err)
+      }
+      
     }
   }
 };
