@@ -9,5 +9,8 @@
 // export const UPDATE_USER = "UPDATE_USER";
 
 // This will be used to update the number of likes a recipe has gotten.
+export const UPDATE_RECIPES = "UPDATE_RECIPES";
+
 export const UPDATE_LIKES = "UPDATE_LIKES";
+
 export const TOGGLE_LOGIN = "TOGGLE_LOGIN";
