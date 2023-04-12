@@ -5,14 +5,14 @@
 // ------------------------------
   
 import React from "react";
-import { useState } from 'react';
-import { Layout, theme } from 'antd';
+// import { useState } from 'react';
+import { Layout,  } from 'antd';
 const { Content } = Layout;
 
 const Home = () => {
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+  // const {
+  //   token: { colorBgContainer },
+  // } = theme.useToken();
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
