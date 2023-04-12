@@ -4,6 +4,7 @@ import { Tag } from 'antd';
 import '../tags.css'; // up one level since all tags will have same styling
 
 const cuisineTags = [ 'American', 'Asian', 'British', 'Caribbean', 'Central American', 'Chinese', 'Eastern European', 'French', 'German', 'Greek', 'Indian', 'Italian', 'Japanese', 'Korean', 'Latin American', 'Mediterranean', 'Mexican', 'Middle Eastern', 'Nordic', 'South American', 'South East Asian', 'Spanish', 'Thai', 'Vietnamese', 'Other' ];
+export { cuisineTags }; // export the array of tags so that it can be used in other files
 
 const Cuisine = () => {
     return (

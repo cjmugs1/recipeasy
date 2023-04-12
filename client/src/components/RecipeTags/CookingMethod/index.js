@@ -4,6 +4,7 @@ import { Tag } from 'antd';
 import '../tags.css'; // up one level since all tags will have same styling
 
 const cookingMethodTags = [ 'Bake', 'Boil', 'Broil', 'Fry', 'Grill', 'Microwave', 'Roast', 'Saute', 'Steam', 'Stew', 'Stir-fry', 'Other' ];
+export { cookingMethodTags }; // export the array of tags so that it can be used in other files
 
 const CookingMethod = () => {
     return (
@@ -18,4 +19,5 @@ const CookingMethod = () => {
     );
 };
 
-export default CookingMethod;
+
+export default CookingMethod; //default export for the CookingMethod component
