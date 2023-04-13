@@ -24,12 +24,6 @@ const Search = () => {
     }
   };
 
-  const handleSearch = (value) => {
-
-    const queryString =  `/search?tags=${selectedTags.join(",")}&q=${value}`;
-    history.push(queryString);
-  };
-
 
   const handleSearch = (value) => {
     //build query string based on selected tags and search value in url so search URLs can be saved
@@ -45,6 +39,9 @@ const Search = () => {
     ...mealTypeTags,
     ...occasionTags,
   ];
+
+useEffect(() => {
+}, []);
 
   return (
    <div>
