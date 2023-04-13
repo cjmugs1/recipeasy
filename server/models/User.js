@@ -30,7 +30,7 @@ const UserSchema = new mongoose.Schema({
     maxlength: 16,
     validate: {
       validator: function (value) {
-        // regex to require at least one special character in password
+        // regex to require at least one special character and number in password
         const regexSpecialChar = /[-!$%^&*()_+|~=`{}[\]:";'<>?,.\/]/;
         const regexNumber = /\d/;
         return regexSpecialChar.test(value) && regexNumber.test(value);
@@ -39,13 +39,9 @@ const UserSchema = new mongoose.Schema({
         "Password must contain at least one special character and one number and be 8-16 characters long.",
     },
   },
-  languages: {
-    type: [String],
-    default: [
-      'English',
-      'French',
-      'Spanish',  
-    ],
+  language: {
+    type: String,
+    default: "en"
   },
   recipes: [
     //recipe array
@@ -62,7 +58,6 @@ UserSchema.pre("save", async function (next) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
-
   next();
 });
 

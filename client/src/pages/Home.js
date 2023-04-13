@@ -6,7 +6,9 @@
   
 import React from "react";
 // import { useState } from 'react';
-import { Layout,  } from 'antd';
+// import { Layout } from 'antd';
+import { Layout } from '../components/Layout';
+import { recipeBrowser } from '../components/RecipeBrowser';
 const { Content } = Layout;
 
 const Home = () => {
@@ -15,71 +17,74 @@ const Home = () => {
   // } = theme.useToken();
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout content={recipeBrowser} />
+
+
+    // <Layout style={{ minHeight: '100vh' }}>
       
-      {/* import side bar / nav bar component here!! (example side bar menu commented out below) */}
+    //   {/* import side bar / nav bar component here!! (example side bar menu commented out below) */}
       
-      {/* <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div
-          style={{
-            height: 32,
-            margin: 16,
-            background: 'rgba(255, 255, 255, 0.2)',
-          }}
-        />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
-      </Sider> */}
+    //   {/* <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+    //     <div
+    //       style={{
+    //         height: 32,
+    //         margin: 16,
+    //         background: 'rgba(255, 255, 255, 0.2)',
+    //       }}
+    //     />
+    //     <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+    //   </Sider> */}
 
 
-      <Layout className="site-layout">
+    //   <Layout className="site-layout">
 
-        {/* import header component here!! (example header commented out below) */}
+    //     {/* import header component here!! (example header commented out below) */}
 
-        {/* <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-          }}
-        /> */}
-
-
-        <Content style={{ margin: '0 16px' }}>
-
-          {/* import recipe browser container component here!! (example content commented out below) */}
-
-          {/* <Breadcrumb
-            style={{
-              margin: '16px 0',
-            }}
-          >
-            <Breadcrumb.Item>User</Breadcrumb.Item>
-            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-          </Breadcrumb>
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-            }}
-          >
-            Bill is a cat.
-          </div> */}
-        </Content> 
+    //     {/* <Header
+    //       style={{
+    //         padding: 0,
+    //         background: colorBgContainer,
+    //       }}
+    //     /> */}
 
 
-        {/* import footer component here!! (example footer commented out below) */}
+    //     <Content style={{ margin: '0 16px' }}>
 
-        {/* <Footer
-          style={{
-            textAlign: 'center',
-          }}
-        >
-          Ant Design ©2023 Created by Ant UED
-        </Footer> */}
+    //       {/* import recipe browser container component here!! (example content commented out below) */}
+
+    //       {/* <Breadcrumb
+    //         style={{
+    //           margin: '16px 0',
+    //         }}
+    //       >
+    //         <Breadcrumb.Item>User</Breadcrumb.Item>
+    //         <Breadcrumb.Item>Bill</Breadcrumb.Item>
+    //       </Breadcrumb>
+    //       <div
+    //         style={{
+    //           padding: 24,
+    //           minHeight: 360,
+    //           background: colorBgContainer,
+    //         }}
+    //       >
+    //         Bill is a cat.
+    //       </div> */}
+    //     </Content> 
 
 
-      </Layout>
-    </Layout>
+    //     {/* import footer component here!! (example footer commented out below) */}
+
+    //     {/* <Footer
+    //       style={{
+    //         textAlign: 'center',
+    //       }}
+    //     >
+    //       Ant Design ©2023 Created by Ant UED
+    //     </Footer> */}
+
+
+    //   </Layout>
+    // </Layout>
   );
 };
 
