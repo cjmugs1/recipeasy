@@ -4,7 +4,7 @@ import { Tag } from 'antd';
 import '../tags.css'; // up one level since all tags will have same styling
 
 const occasionTags = [ 'Holiday', 'Party', 'Picnic', 'Wedding', 'Baby Shower', 'Birthday', 'Anniversary', 'Graduation', 'Sports', 'Party', 'Weeknight', 'Weekend', 'Other' ];
-
+export { occasionTags }; // export the array of tags so that it can be used in other files
 const Occasion = () => {
     return (
         <div className="occasion-tags">

@@ -4,6 +4,7 @@ import { Tag } from 'antd';
 import '../tags.css'; // up one level since all tags will have same styling
 
 const dishTypeTags = [ 'Soups', 'Salads', 'Sandwiches', 'Pasta', 'Desserts', 'Casseroles', 'Drinks', 'Snacks', 'Sauces', 'Stews', 'Stir-fries' ];
+export { dishTypeTags }; // export the array of tags so that it can be used in other files
 
 const DishType = () => {
     return (

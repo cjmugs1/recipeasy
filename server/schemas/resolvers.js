@@ -43,8 +43,9 @@ const resolvers = {
       if (name) {
         params.name = name
       }
-      
-      return await Recipe.find(params)
+      const recipes = await Recipe.find(params);
+      console.log(recipes)
+      return recipes
     },
 
     // checkout: async (parent, args, context) => {
@@ -191,15 +192,21 @@ const resolvers = {
         throw new AuthenticationError('Incorrect credentials');
       }
 
-      const correctPw = await user.isCorrectPassword(password);
+      try {
+        const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
         throw new AuthenticationError('Incorrect credentials');
       }
 
       const token = signToken(user);
+      console.log("signed in!")
 
       return { token, user };
+      } catch(err) {
+        console.log(err)
+      }
+      
     }
   }
 };

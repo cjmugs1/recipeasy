@@ -32,7 +32,7 @@ db.once('open', async () => {
 
   await Recipe.deleteMany();
 
-  const recipes = await Recipe.insertMany([ //itallian tag 8
+  const recipes = await Recipe.insertMany([ //italian tag 8
     {
       title: 'Spaghetti Carbonara',
       ingredients: [
