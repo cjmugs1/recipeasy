@@ -29,24 +29,23 @@ db.once('open', async () => {
   });
 
   const createdRecipes = await Recipe.find()
-  const createdRecipesAndTags = await Recipe.find({}, {tags: 1})
 
   const putIds = async(recipes) => {
     for (let i=0; i < recipes.length; i++){
-      // console.log(recipes[i])
-      // for (let j=0; j < recipes[i].tags.length; j++){
-      //   let user = await RecipeTag.findOneAndUpdate(
-      //     { _id: recipes[i].tags[j]._id },
-      //     { $push: { recipes: recipes[i]._id } },
-      //     { new: true }
-      //   )
-      // }
 
       await User.findOneAndUpdate(
         { _id: recipes[i].userId },
         { $push: { recipes: recipes[i]._id } },
         { new: true }
       )
+
+      for (let j=0; j < recipes[i].tags.length; j++){
+        await RecipeTag.findOneAndUpdate(
+          { _id: recipes[i].tags[j]._id },
+          { $push: { recipes: recipes[i]._id } },
+          { new: true }
+        )
+      }
     }
   }
 

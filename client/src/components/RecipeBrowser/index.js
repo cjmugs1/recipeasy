@@ -6,8 +6,7 @@ import { QUERY_ALL_RECIPES } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 // antd imports
 import { Layout, Col, Row } from 'antd';
-import RecipeCard from "./RecipeCard";
-const { Content } = Layout;
+import RecipeCard from "../RecipeCard";
 
 // run query to back end to get the data, 
 // then updated the global state object for recipes with the results
@@ -47,7 +46,7 @@ function RecipeBrowser() {
                     <RecipeCard
                         key={recipe._id}
                         _id={recipe._id}
-                        image={recipe.image}
+                        image={recipe.imageURL}
                         name={recipe.name}
                         cookTime={recipe.cookTime}
                     />

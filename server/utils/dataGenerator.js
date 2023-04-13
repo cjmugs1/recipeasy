@@ -67,11 +67,11 @@ const createRecipe = async (users, recipeTags, numberOfRecipesPerUser) => {
                 amount: faker.datatype.number(10),
                 unit: cookingUnits[Math.floor(Math.random() * cookingUnits.length)],
             }
-
+            
             const tags = [
-                { _id: recipeTags[Math.floor(Math.random() * recipeTags.length)]._id },
-                { _id: recipeTags[Math.floor(Math.random() * recipeTags.length)]._id },
-                { _id: recipeTags[Math.floor(Math.random() * recipeTags.length)]._id },
+                recipeTags[Math.floor(Math.random() * recipeTags.length)]._id,
+                recipeTags[Math.floor(Math.random() * recipeTags.length)]._id,
+                recipeTags[Math.floor(Math.random() * recipeTags.length)]._id
             ];
 
             recipes.push({
