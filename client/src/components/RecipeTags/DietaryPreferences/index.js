@@ -6,6 +6,7 @@ import '../tags.css'; // up one level since all tags will have same styling
 
 
 const dietaryPreferencesTags = [ 'Dairy Free', 'Egg Free', 'Gluten Free', 'Grain Free', 'Keto', 'Low Carb', 'Low Fat', 'Low Sodium', 'Paleo', 'Pescatarian', 'Raw', 'Vegan', 'Vegetarian'];
+export { dietaryPreferencesTags }; // export the array of tags so that it can be used in other files
 
 const DietaryPreferences = () => {
     return (
