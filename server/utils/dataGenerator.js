@@ -1,5 +1,4 @@
 const db = require('../config/connection');
-const { RecipeTag } = require('../models');
 const { faker } = require('@faker-js/faker') 
 
 db.on('error', (err) => err)
@@ -21,6 +20,7 @@ const createUser = async (numberOfUsers) => {
             email: faker.internet.email(name.split(" ")[0], name.split(" ")[1], 'gmail.dev', { allowSpecialCharacters: false }),
             password: `${faker.internet.password(6, false, /[A-Za-z]/)}${Math.floor(Math.random() * 9)}${specialSymbols[Math.floor(Math.random() * specialSymbols.length)]}`,
             language: `${languageLocales[Math.floor(Math.random() * languageLocales.length)]}`,
+            recipes: []
         })
     };
     return users;
@@ -32,6 +32,7 @@ const createRecipeTag = async (numberOfTags) => {
     for (let i=0; i < numberOfTags; i++){
         recipeTags.push({
             name: recipeTagNames[i],
+            recipes: []
         })
     }
     return recipeTags;
@@ -50,9 +51,9 @@ const createRecipe = async (users, recipeTags, numberOfRecipesPerUser) => {
             // where 6 is the number of ingredients per recipe
             for (let k=0; k < 6; k++){
                 ingredients.push({
+                    quantity: faker.datatype.number(10),
+                    unit: faker.science.unit().name,
                     name: faker.commerce.productMaterial(),
-                    quantity: faker.random.number(10),
-                    unit: faker.lorem.unit(),
                 })
             }
             
@@ -63,14 +64,14 @@ const createRecipe = async (users, recipeTags, numberOfRecipesPerUser) => {
             }
 
             const cookTime = {
-                amount: faker.random.number(10),
+                amount: faker.datatype.number(10),
                 unit: cookingUnits[Math.floor(Math.random() * cookingUnits.length)],
             }
 
             const tags = [
                 { _id: recipeTags[Math.floor(Math.random() * recipeTags.length)]._id },
                 { _id: recipeTags[Math.floor(Math.random() * recipeTags.length)]._id },
-                { _id: recipeTags[Math.floor(Math.random() * recipeTags.length)]._id }
+                { _id: recipeTags[Math.floor(Math.random() * recipeTags.length)]._id },
             ];
 
             recipes.push({
@@ -82,6 +83,8 @@ const createRecipe = async (users, recipeTags, numberOfRecipesPerUser) => {
                 cookTime: cookTime,
                 imageURL: faker.image.food(),
                 tags: tags,
+                originalLanguage: users[i].language,
+                createdAt: Date.now(),
             })
         }
     }

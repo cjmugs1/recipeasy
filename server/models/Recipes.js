@@ -24,10 +24,6 @@ const TimeSchema = new mongoose.Schema({
 })
 
 const IngredientSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
   quantity: {
     type: Number,
     required: true,
@@ -36,8 +32,11 @@ const IngredientSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  name: {
+    type: String,
+    required: true,
+  }
 });
-
 
 const RecipeSchema = new mongoose.Schema({
   userId: {
@@ -60,6 +59,10 @@ const RecipeSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'RecipeTag'
   }],
+  originalLanguage: {
+    type: String,
+    required: true,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),
