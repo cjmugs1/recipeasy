@@ -1,19 +1,33 @@
 const db = require('../config/connection');
-const { User, Recipe, RecipeTag } = require('../models');
-const { createUser, createRecipe } = require('./dataGenerator');
+const { User, RecipeTag, Recipe } = require('../models');
+const { createUser, createRecipeTag, createRecipe } = require('./dataGenerator');
 
 db.once('open', async () => {
+  // clear the db
   await RecipeTag.deleteMany();
   await Recipe.deleteMany();
   await User.deleteMany();
   
+  // create users and then get all of them from the database with the _id field now populated
   await createUser(20).then(async (users) => {
-     // this is the mongoDB syntax for inserting multiple documents into a collection, should we be using this instead of the mongoose syntax?
+    // this is the mongoDB syntax for inserting multiple documents into a collection, should we be using this instead of the mongoose syntax?
     await User.collection.insertMany(users)
-    createRecipe(users, 2);
+  });
+
+  let createdUsers = await User.find()
+
+  // create recipe tags and then get all of them from the database with the _id field now populated
+  await createRecipeTag(30).then(async (recipeTags) => {
+    await RecipeTag.collection.insertMany(recipeTags)
+  });
+
+  let createdRecipeTags = await RecipeTag.find()
+  
+  // now that we have the users and recipe tags in our db, we can create recipes
+  await createRecipe(createdUsers, createdRecipeTags, 2).then(async (recipes) => {
+    await Recipe.collection.insertMany(recipes)
   });
   
-
   const recipeTags = await RecipeTags.insertMany([
     { name: 'American' },      // Tag 0 in array index
     { name: 'BBQ' },           // Tag 1 in array index
@@ -37,45 +51,5 @@ db.once('open', async () => {
     { name: 'Vegetarian' },    // Tag 19 in array index
   ]);
   
-
-  console.log('RecipeTags seeded');
-
-  await Recipe.deleteMany();
-
-  const recipes = await Recipe.insertMany([ //italian tag 8
-    {
-      title: 'Spaghetti Carbonara',
-      ingredients: [
-        'Spaghetti',
-        'Bacon',
-        'Parmesan cheese',
-        'Eggs',
-        'Olive oil',
-        'Salt',
-        'Pepper',
-      ],
-      directions:
-        'Cook the spaghetti according to the package instructions. While it cooks, whisk the eggs, Parmesan, salt, and pepper together in a bowl. Cook bacon in a skillet until crispy. Remove bacon and reserve some fat. Add the cooked spaghetti to the skillet with bacon fat, toss to coat, then add the egg mixture and quickly toss to combine. Serve immediately, garnished with extra Parmesan and chopped parsley.',
-      imageURL: '/images/recipeURLimages/s-carbonara.jpg', // image of recipe stored in client/public/images/recipeURLimages
-      tags: [recipeTags[8]._id],  //tag 8 for Italian
-    },
-    
-  ]);
-
-  console.log('Recipes seeded');
-
-  await User.deleteMany();
-
-  await User.create({
-    name: "Christopher Dean",
-    email: 'coderchrisdean@gmail.com',
-    password: 'T3st123!',
-    recipes: [recipes[8]._id],
-  });
-
-
-
-  console.log('Users seeded');
-
   process.exit();
 });

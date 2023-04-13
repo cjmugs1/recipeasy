@@ -6,15 +6,18 @@ import SiderComponent from '../Sider';
 const { Content, Sider } = Layout;
 
 // Update the function declaration
-export const LayoutComponent = () => {
+export const LayoutComponent = (content) => {
   return (
     <Layout>
-      <HeaderComponent />
+      <Sider>
+        <SiderComponent />
+      </Sider>
       <Layout>
-        <Sider>
-          <SiderComponent />
-        </Sider>
-        <Content></Content>
+        <HeaderComponent />
+        <Content style={{ margin: '0 16px' }}>
+          {content}
+        </Content>
+        <FooterComponent />
       </Layout>
     </Layout>
   );

@@ -10,7 +10,8 @@ const typeDefs = gql`
     username: String
     name: String
     email: String
-    password: String
+    password: String,
+    language: String,
     recipes: [Recipe]
   }
 
@@ -25,8 +26,8 @@ const typeDefs = gql`
     unit: String
   }
   
-  type CookingTime {
-    amount: String
+  type CookTime {
+    amount: Number
     unit: String
   }
 
@@ -38,8 +39,8 @@ const typeDefs = gql`
     ingredients: [Ingredient]
     instructions: [String]
     imageURL: String
-    cookingTime: CookingTime
-    tags: [String]
+    cookTime: CookTime
+    tags: [RecipeTag]
     createdAt: String
   }
 
@@ -55,7 +56,7 @@ const typeDefs = gql`
   }
 
   input TimeInput {
-    amount: String
+    amount: Number
     unit: String
   }
 
@@ -88,7 +89,7 @@ const typeDefs = gql`
       description: String!, 
       ingredients: [IngredientInput]!, 
       instructions: [String]!, 
-      cookingTime: TimeInput!, 
+      cookTime: TimeInput!, 
       imageURL: String, 
       tags: [RecipeTag]
     ): User
@@ -100,7 +101,7 @@ const typeDefs = gql`
       String, 
       ingredients: [String], 
       instructions: [String], 
-      cookingTime: String,  
+      cookTime: String,  
       imageURL: String, 
       tags: [String]
     ): Recipe

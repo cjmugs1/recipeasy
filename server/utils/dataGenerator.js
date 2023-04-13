@@ -1,6 +1,8 @@
 const db = require('../config/connection');
-const { User, Recipe, RecipeTag } = require('../models');
-import { faker } from '@faker-js/faker'
+const { RecipeTag } = require('../models');
+const { faker } = require('@faker-js/faker') 
+
+db.on('error', (err) => err)
 
 const createUser = async (numberOfUsers) => {
     // custom values to use in password and user language generation
@@ -18,15 +20,72 @@ const createUser = async (numberOfUsers) => {
             name: name,
             email: faker.internet.email(name.split(" ")[0], name.split(" ")[1], 'gmail.dev', { allowSpecialCharacters: false }),
             password: `${faker.internet.password(6, false, /[A-Za-z]/)}${Math.floor(Math.random() * 9)}${specialSymbols[Math.floor(Math.random() * specialSymbols.length)]}`,
-            language: `${languageLocales[Math.floor(Math.random * languageLocales.length)]}`,
+            language: `${languageLocales[Math.floor(Math.random() * languageLocales.length)]}`,
         })
     };
     return users;
 }
 
-const createRecipe = async (users, numberOfRecipesPerUser) => {
-    
+const createRecipeTag = async (numberOfTags) => {
+    const recipeTagNames = ["American", "BBQ", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Korean", "Mediterranean", "Mexican", "Middle Eastern", "Thai", "Vegan", "Vegetarian", "Breakfast", "Lunch", "Dinner", "Snack", "Appetizer", "Dessert", "Soups", "Salads", "Sweet", "Sour", "Spicy", "Salty", "Seafood", "Pasta", "Grilled", "Southern", "Healthy"]
+    const recipeTags = [];
+    for (let i=0; i < numberOfTags; i++){
+        recipeTags.push({
+            name: recipeTagNames[i],
+        })
+    }
+    return recipeTags;
 }
 
+const createRecipe = async (users, recipeTags, numberOfRecipesPerUser) => {
+    const cookingUnits = ["hr(s)", "min(s)"]
 
-module.exports = { createUser, createRecipe };
+    const recipes = [];
+
+    for (let i=0; i < users.length; i++){
+
+        for (let j=0; j < numberOfRecipesPerUser; j++){
+
+            const ingredients = [];
+            // where 6 is the number of ingredients per recipe
+            for (let k=0; k < 6; k++){
+                ingredients.push({
+                    name: faker.commerce.productMaterial(),
+                    quantity: faker.random.number(10),
+                    unit: faker.lorem.unit(),
+                })
+            }
+            
+            const instructions = [];
+            // where 6 is the number of instructions per recipe
+            for (let k=0; k < 6; k++){
+                instructions.push( `${faker.hacker.verb()} ${ingredients[k].name}` )
+            }
+
+            const cookTime = {
+                amount: faker.random.number(10),
+                unit: cookingUnits[Math.floor(Math.random() * cookingUnits.length)],
+            }
+
+            const tags = [
+                { _id: recipeTags[Math.floor(Math.random() * recipeTags.length)]._id },
+                { _id: recipeTags[Math.floor(Math.random() * recipeTags.length)]._id },
+                { _id: recipeTags[Math.floor(Math.random() * recipeTags.length)]._id }
+            ];
+
+            recipes.push({
+                userId: users[i]._id,
+                name: faker.commerce.productName(),
+                description: faker.lorem.sentence(),
+                ingredients: ingredients,
+                instructions: instructions,
+                cookTime: cookTime,
+                imageURL: faker.image.food(),
+                tags: tags,
+            })
+        }
+    }
+    return recipes;
+}
+
+module.exports = { createUser, createRecipeTag, createRecipe };
