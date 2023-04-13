@@ -14,9 +14,7 @@ export const LayoutComponent = () => {
         <Sider>
           <SiderComponent />
         </Sider>
-        <Content>
-          
-        </Content>
+        
       </Layout>
     </Layout>
   );
