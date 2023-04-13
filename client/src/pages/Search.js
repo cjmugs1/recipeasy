@@ -8,9 +8,11 @@ import { dietaryPreferencesTags } from "../components/RecipeTags/DietaryPreferen
 import { dishTypeTags } from "../components/RecipeTags/DishType";
 import { mealTypeTags } from "../components/RecipeTags/MealType";
 import { occasionTags } from "../components/RecipeTags/Occasions";
+import { useHistory } from "react-router-dom";
 
 const Search = () => {
   const [selectedTags, setSelectedTags] = useState([]);
+  const history = useHistory();
 
   const handleTagClick = (tag) => {
     if (selectedTags.includes(tag)) {
@@ -22,6 +24,13 @@ const Search = () => {
     }
   };
 
+  const handleSearch = (value) => {
+
+    const queryString =  `/search?tags=${selectedTags.join(",")}&q=${value}`;
+    history.push(queryString);
+  };
+
+
   const recipeTags = [
     ...cookingMethodTags,
     ...cuisineTags,
@@ -32,7 +41,7 @@ const Search = () => {
   ];
 
   return (
-    <div>
+   <div>
       <Row>
         <Col span={12} offset={6}>
           <Input.Search
@@ -40,6 +49,7 @@ const Search = () => {
             enterButton
             size="large"
             style={{ marginBottom: "1rem" }}
+            onSearch={handleSearch}
           />
         </Col>
       </Row>
