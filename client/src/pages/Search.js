@@ -1,7 +1,7 @@
 // search for recipes
 import React, { useState, useEffect } from "react";
 import { Input, Tag, Row, Col } from "antd";
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css";
 import { cookingMethodTags } from "../components/RecipeTags/CookingMethod";
 import { cuisineTags } from "../components/RecipeTags/Cuisine";
 import { dietaryPreferencesTags } from "../components/RecipeTags/DietaryPreferences";
@@ -31,6 +31,12 @@ const Search = () => {
   };
 
 
+  const handleSearch = (value) => {
+    //build query string based on selected tags and search value in url so search URLs can be saved
+    const queryString = `/search?tags=${selectedTags.join(",")}&q=${value}`;
+    history.push(queryString);
+  };
+
   const recipeTags = [
     ...cookingMethodTags,
     ...cuisineTags,
@@ -59,7 +65,7 @@ const Search = () => {
             <Tag
               key={tag}
               onClick={() => handleTagClick(tag)}
-              color={selectedTags.includes(tag) ? "geekblue" : "default"}
+              color={selectedTags.includes(tag) ? "geekblue" : "#d9d9d9"}
               style={{ cursor: "pointer", marginBottom: "0.5rem" }}
             >
               {tag}
