@@ -10,7 +10,7 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Recipes from './pages/Recipes';
-import { useRecipeasyReducer } from './utils/reducers';
+// import { useRecipeasyReducer } from './utils/reducers';
 // import NoMatch from './pages/NoMatch';
 
 const httpLink = createHttpLink({
@@ -18,11 +18,11 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('id_token');
+  const token = localStorage.getItem("id_token");
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : '',
+      authorization: token ? `Bearer ${token}` : "",
     },
   };
 });
@@ -45,6 +45,7 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
+
         {!loggedIn ? 
           <Routes>
             <Route path="/" element={<Login />} />
@@ -61,11 +62,11 @@ function App() {
             <Route path="/recipes" element={<Recipes />} />
             {/* <Route path="*" element={<NoMatch />} /> */}
           </Routes>
-        }       
+        }
         </div>
       </Router>
     </ApolloProvider>
   );
-};
+}
 
 export default App;
