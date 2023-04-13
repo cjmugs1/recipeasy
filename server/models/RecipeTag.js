@@ -8,6 +8,12 @@ const RecipeTagSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  recipes: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Recipe',
+    }
+  ]
 });
 
 const RecipeTag = mongoose.model('RecipeTag', RecipeTagSchema);

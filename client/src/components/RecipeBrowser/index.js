@@ -6,8 +6,7 @@ import { QUERY_ALL_RECIPES } from '../../utils/queries';
 import { idbPromise } from '../../utils/helpers';
 // antd imports
 import { Layout, Col, Row } from 'antd';
-import RecipeCard from "./RecipeCard";
-const { Content } = Layout;
+import RecipeCard from "../RecipeCard";
 
 // run query to back end to get the data, 
 // then updated the global state object for recipes with the results
@@ -40,22 +39,20 @@ function RecipeBrowser() {
 
 
     return (
-        <Content style={{ margin: '0 16px' }}>
-            <Row gutter={[24, 16]}>
-                {/* something like map each recipe in array to a card */}
-                {data.recipes.map((recipe) => (
-                    <Col span={6}>
-                        <RecipeCard
-                            key={recipe._id}
-                            _id={recipe._id}
-                            image={recipe.image}
-                            name={recipe.name}
-                            cookTime={recipe.cookTime}
-                        />
-                    </Col>
-                ))}
-            </Row>
-        </Content> 
+        <Row gutter={[24, 16]}>
+            {/* something like map each recipe in array to a card */}
+            {data.recipes.map((recipe) => (
+                <Col span={6}>
+                    <RecipeCard
+                        key={recipe._id}
+                        _id={recipe._id}
+                        image={recipe.imageURL}
+                        name={recipe.name}
+                        cookTime={recipe.cookTime}
+                    />
+                </Col>
+            ))}
+        </Row>
     );
 }
 
