@@ -14,9 +14,9 @@ const Home = () => {
   return (
     <>
 
-      <h1>Home Page</h1>
       <LayoutComponent>
       {/* <RecipeBrowser /> */}
+      <h1>Home Page</h1>
       </LayoutComponent>
     </>
   );
