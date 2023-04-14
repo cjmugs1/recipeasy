@@ -1,0 +1,31 @@
+
+/*=============================================
+=            feature icon            =
+=============================================*/
+
+.feature-icon-wrapper{
+    margin-bottom: -30px;
+}
+
+.single-feature-icon{
+    margin-bottom: 30px;
+
+    &__image{
+        margin-bottom: 20px;
+    }
+
+    &__title{
+        font-size: 24px;
+        line-height: 1.3;
+        color: #393939;
+        margin-bottom: 15px;
+    }
+
+    &__content{
+        color: #5a5a5a;
+        font-family: $poppins;
+    }
+}
+
+/*=====  End of feature icon  ======*/
+

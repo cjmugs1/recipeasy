@@ -1,11 +1,11 @@
-import { React, useEffect } from 'react';
+import { React, useState, useEffect  } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { loggedIn } from './utils/auth';
 
 import Home from './pages/Home';
-import Login from './pages/Login';
+import Login from './components/Login/index';
 import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
@@ -36,7 +36,7 @@ console.log(client)
 
 function App() {
 
-  const loggedIn = loggedIn();
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
   }, [loggedIn]);
@@ -46,13 +46,9 @@ function App() {
       <Router>
         <div>
 
-        {!loggedIn ? 
+    
           <Routes>
-            <Route path="/" element={<Login />} />
-          </Routes>
-          :
-          <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={loggedIn ? <Login /> : <Home />} /> {/*need to add ! in front of loggedIn to make it work*/}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             {/* <Route path="/donation" element={<Success />} /> */}

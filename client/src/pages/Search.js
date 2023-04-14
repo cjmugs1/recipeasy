@@ -1,18 +1,18 @@
 // search for recipes
 import React, { useState, useEffect } from "react";
+
 import { Input, Tag, Row, Col } from "antd";
-// import "antd/dist/antd.css";
 import { cookingMethodTags } from "../components/RecipeTags/CookingMethod";
 import { cuisineTags } from "../components/RecipeTags/Cuisine";
 import { dietaryPreferencesTags } from "../components/RecipeTags/DietaryPreferences";
 import { dishTypeTags } from "../components/RecipeTags/DishType";
 import { mealTypeTags } from "../components/RecipeTags/MealType";
 import { occasionTags } from "../components/RecipeTags/Occasions";
-// import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
   const [selectedTags, setSelectedTags] = useState([]);
-  // const history = useHistory();
+  const history = useNavigate();
 
   const handleTagClick = (tag) => {
     if (selectedTags.includes(tag)) {

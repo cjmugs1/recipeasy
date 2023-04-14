@@ -26,12 +26,6 @@ const typeDefs = gql`
     unit: String
   }
 
-  type RecipeTag {
-    _id: ID
-    name: String
-    recipes: [Recipe]
-  }
-  
   type Recipe {
     _id: ID
     userId: User
@@ -59,10 +53,11 @@ const typeDefs = gql`
 
   input TimeInput {
     amount: Int
+    amount: Int
     unit: String
   }
 
-  input RecipeTagInput {
+  input RecipeTagInputInput {
     _id: ID
   }
 

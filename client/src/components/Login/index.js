@@ -1,7 +1,7 @@
-import { React, useState } from "react";
-import "../src/styles.css";
+import React,  { useState } from "react";
+import "./login.css";
 
-export const Login = () => {
+export default function Login(){
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -110,3 +110,4 @@ export const Login = () => {
     </div>
   );
 };
+
