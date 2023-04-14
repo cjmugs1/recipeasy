@@ -11,22 +11,18 @@ import {
   UserOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu } from 'antd';
+import { Menu } from 'antd';
 
-const { Sider } = Layout;
-
-const App: React.FC = () => {
+function SiderComponent() {
   const [collapsed, setCollapsed] = useState(false);
 //   const {
 //     token: { colorBgContainer },
 //   } = theme.useToken(); 
 
   return (
-    <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
-        <div className="logo" />
+      <div>
+        <div className="logo"></div>
         <Menu
-        //   theme="dark"
           mode="inline"
           defaultSelectedKeys={['1']}
           items={[
@@ -51,8 +47,7 @@ const App: React.FC = () => {
                 label: 'Search recipes',
               },
           ]}
-        />
-      </Sider>
+        ></Menu>
       {/* <Layout className="site-layout">
         <Header style={{ padding: 0, background: colorBgContainer }}>
           {React.createElement(collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
@@ -71,8 +66,8 @@ const App: React.FC = () => {
           Content
         </Content>
       </Layout> */}
-    </Layout>
+    </div>
   );
 };
 
-export default App;
+export default SiderComponent;

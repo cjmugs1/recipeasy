@@ -6,12 +6,12 @@
   
 import React from "react";
 import Layout from '../components/Layout';
-import { recipeBrowser } from '../components/RecipeBrowser';
+import RecipeBrowser from '../components/RecipeBrowser';
 const { Content } = Layout;
 
 const Home = () => {
   return (
-    <Layout content={recipeBrowser} />
+    <Layout content={RecipeBrowser} />
   );
 };
 
