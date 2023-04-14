@@ -5,9 +5,7 @@
 // ------------------------------
   
 import React from "react";
-// import { useState } from 'react';
-// import { Layout } from 'antd';
-import { Layout } from '../components/Layout';
+import Layout from '../components/Layout';
 import { recipeBrowser } from '../components/RecipeBrowser';
 const { Content } = Layout;
 

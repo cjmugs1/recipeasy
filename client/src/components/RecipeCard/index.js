@@ -13,10 +13,10 @@ function RecipeCard(recipe) {
 
     return (
       <Link to={`/products/${_id}`}>
-            <Card title={name} bordered={false}>
-              <p>{cookTime}</p>
-              <img src={image}/>
-            </Card>
+        <Card title={name} bordered={false}>
+          <p>{cookTime}</p>
+          <img src={image}/>
+        </Card>
       </Link>
     );
 }
