@@ -10,6 +10,11 @@ import { Layout,  } from 'antd';
 const { Content } = Layout;
 
 const Home = () => {
+  const token = Auth.loggedIn() ? Auth.getToken() : null;
+
+    if (!token) {
+      return false;
+    }
   // const {
   //   token: { colorBgContainer },
   // } = theme.useToken();

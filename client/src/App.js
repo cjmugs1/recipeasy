@@ -9,6 +9,7 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Recipes from './pages/Recipes';
+import AddRecipe from './components/AddRecipe';
 // import NoMatch from './pages/NoMatch';
 
 const httpLink = createHttpLink({
@@ -40,15 +41,16 @@ function App() {
       <Router>
         <div>
           <Routes>
-            {loggedIn ? <Route path="/" element={<Home />} /> : <Route path="/" element={<Login />} /> }
-            {/* <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Home />} /> */}
+            {/* {loggedIn ? <Route path="/" element={<Home />} /> : <Route path="/" element={<Login />} /> } */}
+            <Route path="/" element={<Login />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/signup" element={<Signup />} />
             {/* <Route path="/donation" element={<Success />} /> */}
             <Route path="/profile" element={<Profile />} />
             <Route path="/search" element={<Search />} />
             <Route path="/recipes/:id" element={<Recipes />} />
             <Route path="/recipes" element={<Recipes />} />
+            <Route path="/add-recipe" element={<AddRecipe />} />
             {/* <Route path="*" element={<NoMatch />} /> */}
           </Routes>
         </div>
