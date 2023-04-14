@@ -1,18 +1,40 @@
 import React,  { useState } from "react";
+import Auth from "../../utils/auth";
 import "./login.css";
 
 export default function Login(){
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginUser, { error: loginError }] = useMutation(LOGIN_USER);
+  const [signupUser, { error: signupError }] = useMutation(SIGNUP_USER);
 
   const handleLogin = () => {
-    console.log("you logged in with email", email);
-    console.log("you logged in with password", password);
+try {
+  const { data } = await loginUser({ variables: { email, password } });
+
+  if (data.login.token) {
+    Auth.login(data.login.token);
+  } else {
+    console.log("Invalid credentials");
+  }
+} catch (error) {
+  console.error("Error occurred while logging in: ", error);
+  };
   };
 
   const handleSignup = () => {
-    console.log("you logged in with email", email);
-    console.log("you logged in with password", password);
+    try {
+      const { data } = await signupUser({ variables: { email, password } });
+    }
+
+    if (data.signup.token) {
+      Auth.login(data.signup.token);
+    } else {
+      console.log("Invalid credentials");
+    }
+  } catch (error) {
+    console.error("Error occurred while signing up: ", error);
+    
   };
 
   return (
