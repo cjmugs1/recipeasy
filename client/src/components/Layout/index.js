@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout } from 'antd';
-import HeaderComponent from '../Header';
+import HeaderComponent from '../HeaderComponent';
 import SiderComponent from '../Sider';
 
 const { Content, Sider } = Layout;
