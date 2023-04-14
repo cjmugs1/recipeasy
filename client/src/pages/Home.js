@@ -5,15 +5,13 @@
 // ------------------------------
   
 import React from "react";
-// import { useState } from 'react';
-// import { Layout } from 'antd';
-import { Layout } from '../components/Layout';
-import { recipeBrowser } from '../components/RecipeBrowser';
+import Layout from '../components/Layout';
+import RecipeBrowser from '../components/RecipeBrowser';
 const { Content } = Layout;
 
 const Home = () => {
   return (
-    <Layout content={recipeBrowser} />
+    <Layout content={RecipeBrowser} />
   );
 };
 

@@ -16,20 +16,14 @@ const typeDefs = gql`
   }
 
   type Ingredient {
-    name: String
-    quantity: String
+    quantity: Int
     unit: String
+    name: String
   }
   
   type CookTime {
     amount: Int
     unit: String
-  }
-
-  type RecipeTag {
-    _id: ID
-    name: String
-    recipes: [Recipe]
   }
 
   type Recipe {
@@ -52,17 +46,18 @@ const typeDefs = gql`
   }
 
   input IngredientInput {
-    name: String
-    quantity: String
+    quantity: Int
     unit: String
+    name: String
   }
 
   input TimeInput {
     amount: Int
+    amount: Int
     unit: String
   }
 
-  input RecipeTagInput {
+  input RecipeTagInputInput {
     _id: ID
   }
 

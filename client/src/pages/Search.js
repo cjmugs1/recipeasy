@@ -8,11 +8,11 @@ import { dietaryPreferencesTags } from "../components/RecipeTags/DietaryPreferen
 import { dishTypeTags } from "../components/RecipeTags/DishType";
 import { mealTypeTags } from "../components/RecipeTags/MealType";
 import { occasionTags } from "../components/RecipeTags/Occasions";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 const Search = () => {
   const [selectedTags, setSelectedTags] = useState([]);
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const handleTagClick = (tag) => {
     if (selectedTags.includes(tag)) {

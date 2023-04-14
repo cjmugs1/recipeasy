@@ -6,10 +6,10 @@ import SiderComponent from '../Sider';
 const { Content, Sider } = Layout;
 
 // Update the function declaration
-export const LayoutComponent = (content) => {
+function LayoutComponent (content) {
   return (
     <Layout>
-      <Sider>
+      <Sider trigger={null} collapsible collapsed={collapsed}>
         <SiderComponent />
       </Sider>
       <Layout>
@@ -22,3 +22,5 @@ export const LayoutComponent = (content) => {
     </Layout>
   );
 };
+
+export default LayoutComponent;
