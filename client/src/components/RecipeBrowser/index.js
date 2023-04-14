@@ -1,4 +1,4 @@
-import { React, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useStoreContext } from '../../utils/GlobalState';
 import { useQuery } from '@apollo/client';
 import { UPDATE_RECIPES } from '../../utils/actions';
@@ -37,6 +37,10 @@ function RecipeBrowser() {
         }
     }, [data, loading, dispatch]);
 
+    if (!data || !data.recipes || !Array.isArray(data.recipes)) {
+        return <div>Loading...</div>;
+      }
+    
 
     return (
         <Row gutter={[24, 16]}>

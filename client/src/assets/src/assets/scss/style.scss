@@ -1,0 +1,84 @@
+/*=============================================
+=            CSS Index            =
+=============================================
+
+    -> Helper CSS
+    -> Default CSS
+    -> Spacing
+    -> Header
+    -> Footer
+    -> Sidebar
+    -> Button
+    -> Section title
+    -> Backgrounds
+    -> Scroll top
+    -> Breadcrumb
+    -> Pagination
+    -> Preloader
+    -> Hero slider
+    -> Service grid slider
+    -> Video cta
+    -> Project slider
+    -> Team
+    -> Testimonial slider
+    -> Service tab
+    -> Fun fact
+    -> Feature icon
+    -> Project gallery
+    -> Fun fact
+    -> Blog
+    -> About
+    -> Service
+    -> Project
+    -> Contact
+    -> 404
+    -> Landing page
+    
+ 
+/*=====  End of CSS Index  ======*/
+
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~animate.css/animate.min.css";
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/effect-fade";
+@import "~react-modal-video/scss/modal-video.scss";
+@import "yet-another-react-lightbox/styles.css";
+@import "yet-another-react-lightbox/plugins/thumbnails.css";
+@import "../css/vendor/flaticon.min.css";
+@import "../css/vendor/font-awesome.min.css";
+@import "../css/vendor/ionicons.min.css";
+@import "../css/vendor/material-design-iconic-font.min.css";
+@import "../css/vendor/et-line.css";
+
+@import "0-base/variables";
+@import "0-base/mixins";
+@import "0-base/helper";
+@import "1-global/default";
+@import "1-global/spacing";
+@import "2-layout/header";
+@import "2-layout/footer";
+@import "2-layout/sidebar";
+@import "3-elements/button";
+@import "3-elements/section-title";
+@import "3-elements/backgrounds";
+@import "3-elements/scroll-top";
+@import "3-elements/breadcrumb";
+@import "3-elements/pagination";
+@import "3-elements/preloader";
+@import "4-sections/hero-slider";
+@import "4-sections/service-grid-slider";
+@import "4-sections/video-cta";
+@import "4-sections/project-slider";
+@import "4-sections/team";
+@import "4-sections/testimonial-slider";
+@import "4-sections/service-tab";
+@import "4-sections/fun-fact";
+@import "4-sections/feature-icon";
+@import "4-sections/project-gallery";
+@import "5-pages/blog";
+@import "5-pages/about";
+@import "5-pages/service";
+@import "5-pages/project";
+@import "5-pages/contact";
+@import "5-pages/404";

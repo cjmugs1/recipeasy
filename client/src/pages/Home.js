@@ -5,13 +5,20 @@
 // ------------------------------
   
 import React from "react";
-import Layout from '../components/Layout';
+import LayoutComponent from '../components/LayoutComponent';
 import RecipeBrowser from '../components/RecipeBrowser';
-const { Content } = Layout;
 
 const Home = () => {
+
+
   return (
-    <Layout content={RecipeBrowser} />
+    <>
+
+      <h1>Home Page</h1>
+      <LayoutComponent>
+      {/* <RecipeBrowser /> */}
+      </LayoutComponent>
+    </>
   );
 };
 
