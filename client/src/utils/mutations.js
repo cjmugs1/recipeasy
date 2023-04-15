@@ -35,8 +35,8 @@ mutation updateUser($name: String, $username: String, $email: String, $password:
 `;
 
 export const ADD_RECIPE = gql`
-mutation addRecipe($userId: ID!, $name: String!, $description: String!, $ingredients: [IngredientInput]!, $instructions: [String]!, $cookingTime: TimeInput!) {
-  addRecipe(userId: $userId, name: $name, description: $description, ingredients: $ingredients, instructions: $instructions, cookingTime: $cookingTime) {
+mutation addRecipe($userId: ID!, $name: String!, $description: String!, $ingredients: [IngredientInput]!, $instructions: String!, $cookTime: String!, $originalLanguage: String!) {
+  addRecipe(userId: $userId, name: $name, description: $description, ingredients: $ingredients, instructions: $instructions, cookTime: $cookTime, originalLanguage: $originalLanguage) {
     username,
     recipes {
       name
@@ -46,10 +46,7 @@ mutation addRecipe($userId: ID!, $name: String!, $description: String!, $ingredi
         unit
         name
       }
-      cookingTime{
-        amount
-        unit
-      }
+      cookTime
       createdAt
       description
     }

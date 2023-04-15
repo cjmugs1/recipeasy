@@ -1,0 +1,260 @@
+/*=============================================
+=            Default CSS            =
+=============================================*/
+
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i");
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400");
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: $font-family-name;
+  font-size: $body-font-size;
+  font-weight: $body-font-weight;
+  font-style: normal;
+  line-height: $body-line-height;
+
+  position: relative;
+
+  visibility: visible;
+
+  color: $body-text-color;
+  background-color: $body-bg-color;
+
+  &.no-overflow {
+    overflow: hidden;
+  }
+
+  &.boxed {
+    max-width: 1500px;
+    margin: 0 auto;
+
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.06);
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $heading-font-family-name;
+  font-weight: $heading-font-weight;
+  line-height: 1.23;
+
+  margin-top: 0;
+
+  color: $heading-text-color;
+}
+h1 {
+  font-size: 39px;
+}
+h2 {
+  font-size: 36px;
+}
+h3 {
+  font-size: 22px;
+}
+h4 {
+  font-size: 16px;
+}
+h5 {
+  font-size: 14px;
+}
+h6 {
+  font-size: 9px;
+}
+p:last-child {
+  margin-bottom: 0;
+}
+a,
+button {
+  line-height: inherit;
+
+  display: inline-block;
+
+  cursor: pointer;
+  text-decoration: none;
+
+  color: inherit;
+}
+a,
+button,
+img,
+input,
+span {
+  transition: all 0.1s ease 0s;
+}
+*:focus {
+  outline: none !important;
+}
+a:focus {
+  text-decoration: none;
+
+  color: inherit;
+  outline: none;
+}
+a:hover {
+  text-decoration: none;
+}
+button,
+input[type="submit"] {
+  cursor: pointer;
+}
+ul {
+  margin: 0;
+  padding: 0;
+
+  list-style: outside none none;
+}
+
+/*-- Tab Content & Pane Fix --*/
+
+select {
+  padding-right: 15px;
+
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' version='1.1' height='10px' width='15px'%3E%3Ctext x='0' y='10' fill='black'%3E%E2%96%BE%3C/text%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 95% 50%;
+
+  -webkit-appearance: none;
+     -moz-appearance: none;
+}
+
+.slick-slide > div > div {
+  vertical-align: middle;
+}
+
+.border {
+  border: 1px solid #eee !important;
+}
+
+.border-top {
+  border-top: 1px solid #eee !important;
+}
+
+.border-right {
+  border-right: 1px solid #eee !important;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #eee !important;
+}
+
+.border-left {
+  border-left: 1px solid #eee !important;
+}
+
+/* slider default style */
+
+.ht-swiper-button {
+  &-nav {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 50px;
+
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+
+    width: 50px;
+    height: 50px;
+
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1),
+    visibility 0.3s linear 2s, opacity 0.3s linear 2s;
+    transform: translateY(-50%);
+    text-align: center;
+
+    color: $theme-color--black;
+    border: 2px solid rgba(34, 34, 34, 0.16);
+    border-radius: 100%;
+    outline: none !important;
+    background: none;
+    background-image: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.01);
+
+    &:hover {
+      color: $white;
+      border-color: $theme-color--default;
+      background-color: $theme-color--default;
+    }
+  }
+
+  &-prev {
+    left: 0;
+  }
+
+  &-next {
+    right: 0;
+  }
+}
+
+.swiper-pagination {
+  line-height: 1;
+
+  position: static;
+  z-index: 7;
+
+  display: block;
+
+  width: auto;
+  max-width: 100%;
+
+  text-align: center;
+
+  &-bullet {
+    width: 12px;
+    height: 12px;
+    margin: 0 5px;
+
+    cursor: pointer;
+    &-active {
+      cursor: default;
+
+      background-color: $theme-color--black;
+    }
+  }
+
+  .swiper-pagination-bullet {
+    vertical-align: bottom;
+  }
+}
+
+input {
+  &::placeholder {
+    transition: $transition--cubic;
+  }
+}
+
+.vertical-navigation-home-wrapper {
+  margin-left: 300px;
+  @media #{$desktop-device,
+  $tablet-device,
+  $large-mobile} {
+    margin-left: 0;
+  }
+}
+
+@keyframes moveVertical {
+  100% {
+    transform: translateY(0);
+
+    opacity: 1;
+  }
+}
+
+.swiper-wrap {
+  position: relative;
+}
+
+/*=====  End of Default CSS  ======*/

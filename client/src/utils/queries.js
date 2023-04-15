@@ -20,7 +20,7 @@ export const QUERY_RECIPE_BY_ID = gql`
 query getSingleRecipe($recipeId: ID!) {
   singleRecipe(recipeId: $recipeId) {
     name
-    cookingTime {
+    cookTime {
       amount
       unit
     }
@@ -34,7 +34,7 @@ query searchRecipes($name: String, $username: String, $tags: [String]) {
     name
     _id
     imageURL
-    cookingTime {
+    cookTime {
       amount
       unit
     }

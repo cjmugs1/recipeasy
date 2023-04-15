@@ -1,0 +1,39 @@
+/*=============================================
+=            backgrounds            =
+=============================================*/
+
+.white-bg {
+  background-color: #ffffff;
+}
+
+.grey-bg {
+  background-color: #f7f7f7;
+  &--style2 {
+    background-color: #eeeeee;
+  }
+  &--style3 {
+    background-color: #f5f6fa;
+  }
+}
+
+.dark-bg {
+  background-color: #111;
+  &--style2 {
+    background-color: #11202d;
+  }
+  &--style3 {
+    background-color: $theme-color--black;
+  }
+  &--style4 {
+    background-color: #06112c;
+  }
+  &--style5 {
+    background-color: #05103b;
+  }
+}
+
+.default-bg {
+  background-color: $theme-color--default;
+}
+
+/*=====  End of backgrounds  ======*/

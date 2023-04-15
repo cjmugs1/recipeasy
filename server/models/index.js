@@ -1,7 +1,6 @@
 // update imports 
-const Recipe = require('./Recipes')
-const RecipeTag = require('./RecipeTag')
 const User = require('./User');
+const RecipeTag = require('./RecipeTag')
+const Recipe = require('./Recipes')
 
-
-module.exports = { Recipe, RecipeTag, User };
+module.exports = { User, RecipeTag, Recipe };
