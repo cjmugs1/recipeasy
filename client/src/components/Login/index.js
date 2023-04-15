@@ -1,14 +1,37 @@
 import React,  { useState } from "react";
+import { useMutation } from '@apollo/client';
+import { Link } from 'react-router-dom';
+import { LOGIN } from '../../utils/mutations';
+import Auth from '../../utils/auth';
 import "./login.css";
 
 export default function Login(){
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [login, { error }] = useMutation(LOGIN);
 
-  const handleLogin = () => {
-    console.log("you logged in with email", email);
-    console.log("you logged in with password", password);
+  const handleLogin = async (event) => {
+    event.preventDefault();
+    try {
+      const mutationResponse = await login({
+        variables: { email: formState.email, password: formState.password },
+      });
+      const token = mutationResponse.data.login.token;
+      Auth.login(token);
+    } catch (e) {
+      console.log(e);
+    }
   };
+
+  const handleChange = (event) => {
+    console.log(event.target)
+    const { name, value } = event.target;
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+    console.log(formState)
+  };
+
 
   const handleSignup = () => {
     console.log("you logged in with email", email);
@@ -39,7 +62,7 @@ export default function Login(){
       </div>
       <div width="100%" justifyContent="center" alignItems="center">
         <input
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleChange}
           style={{
             padding: "16px",
             width: "362px",
@@ -50,6 +73,7 @@ export default function Login(){
           }}
           type="email"
           placeholder="Email"
+          name="email"
         ></input>
       </div>
 
@@ -66,7 +90,8 @@ export default function Login(){
           }}
           type="password"
           placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleChange}
+          name="password"
         ></input>
       </div>
 

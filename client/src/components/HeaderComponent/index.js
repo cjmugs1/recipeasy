@@ -7,6 +7,7 @@ export const HeaderComponent = () => {
     const handleLogout = () => {
         Auth.logout();
     };
+
     return (
         <header className="flex-row px-1">
         <h2>
@@ -17,7 +18,7 @@ export const HeaderComponent = () => {
         <nav>
             <ul className="flex-row">
             <li className="mx-2">
-                <a data-testid="link" href="/login">
+                <a data-testid="link" onClick={handleLogout}>
                 Logout
                 </a>
             </li>
