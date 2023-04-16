@@ -6,7 +6,7 @@ import { loggedIn } from './utils/auth';
 
 import Home from './pages/Home';
 import Login from './components/Login/index';
-import Signup from './pages/Signup';
+// import Signup from './components/Signup/';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Recipes from './pages/Recipes';
@@ -54,7 +54,7 @@ function App() {
           <Routes>
             <Route path="/" element={loggedIn ? <Login /> : <Home />} /> {/*need to add ! in front of loggedIn to make it work*/}
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
+            {/* <Route path="/signup" element={<Signup />} /> */}
             {/* <Route path="/donation" element={<Success />} /> */}
             <Route path="/profile" element={<Profile />} />
             <Route path="/search" element={<Search />} />
