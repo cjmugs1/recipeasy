@@ -10,7 +10,7 @@ import { QUERY_RECIPES } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif";
 
-function RecipeList() {
+function SearchResults() {
   const [state, dispatch] = useStoreContext();
 
   const { searchTerm } = state;
@@ -69,4 +69,4 @@ function RecipeList() {
   );
 }
 
-export default RecipeList;
+export default SearchResults;
