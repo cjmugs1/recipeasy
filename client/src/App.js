@@ -10,12 +10,16 @@ import Signup from './pages/Signup';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Recipes from './pages/Recipes';
+import AddRecipe from './components/AddRecipe';
+
 // import { useRecipeasyReducer } from './utils/reducers';
 // import NoMatch from './pages/NoMatch';
 
 const httpLink = createHttpLink({
-  uri: 'graphql',
+  uri: 'http://localhost:3001/graphql',
 });
+
+
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("id_token");
@@ -56,9 +60,10 @@ function App() {
             <Route path="/search" element={<Search />} />
             <Route path="/recipes/:id" element={<Recipes />} />
             <Route path="/recipes" element={<Recipes />} />
+            <Route path="/add-recipe" element={<AddRecipe />} />
             {/* <Route path="*" element={<NoMatch />} /> */}
           </Routes>
-        }
+        
         </div>
       </Router>
     </ApolloProvider>

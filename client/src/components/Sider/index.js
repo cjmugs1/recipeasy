@@ -3,11 +3,13 @@
 // upding Sider index 
 
 import React, { useState } from 'react';
+// import { useNavigation } from 'react-router-dom';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   HomeOutlined,
   UploadOutlined,
+  TagOutlined,
   UserOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
@@ -18,9 +20,12 @@ function SiderComponent() {
 //   const {
 //     token: { colorBgContainer },
 //   } = theme.useToken(); 
-
+  // const navigation = useNavigation();
+  // const handleSearch = () => {
+  //   history.push('/search');
+  // };
   return (
-      <div>
+      <div class="side-menu">
         <div className="logo"></div>
         <Menu
           mode="inline"
@@ -38,11 +43,16 @@ function SiderComponent() {
             },
             {
               key: '3',
+              icon: <TagOutlined />,
+              label: 'Categories',
+            },
+            {
+              key: '4',
               icon: <UploadOutlined />,
               label: 'Upload recipe',
             },
             {
-                key: '3',
+                key: '5',
                 icon: <SearchOutlined />,
                 label: 'Search recipes',
               },

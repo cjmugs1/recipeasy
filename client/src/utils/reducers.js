@@ -1,6 +1,7 @@
 import { useReducer } from 'react';
 import {
   UPDATE_LIKES,
+  UPDATE_SEARCH_TERM,
 } from './actions';
 
 // The reducer is a function that accepts the current state and an action. It returns a new state based on that action.
@@ -13,6 +14,11 @@ export const reducer = (state, action) => {
         likes: [...action.likes],
       };
 
+    case UPDATE_SEARCH_TERM:
+      return {
+        ...state,
+        searchTerm: action.searchTerm,
+      };
     // Return the state as is in the event that the `action.type` passed to our reducer was not accounted for by the developers
     // This saves us from a crash.
     default:

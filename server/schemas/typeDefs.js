@@ -26,6 +26,17 @@ const typeDefs = gql`
     unit: String
   }
 
+  input TimeInput {
+    amount: Int
+    unit: String
+  }
+
+  type RecipeTag {
+    _id: ID
+    name: String
+    recipes: [Recipe]
+  }
+
   type Recipe {
     _id: ID
     userId: User
@@ -34,7 +45,7 @@ const typeDefs = gql`
     ingredients: [Ingredient]
     instructions: [String]
     imageURL: String
-    cookTime: CookTime
+    cookTime: String
     tags: [RecipeTag]
     originalLanguage: String
     createdAt: String
@@ -51,13 +62,8 @@ const typeDefs = gql`
     name: String
   }
 
-  input TimeInput {
-    amount: Int
-    amount: Int
-    unit: String
-  }
-
-  input RecipeTagInputInput {
+  
+  input RecipeTagInput {
     _id: ID
   }
 
@@ -89,11 +95,11 @@ const typeDefs = gql`
       name: String!, 
       description: String!, 
       ingredients: [IngredientInput]!, 
-      instructions: [String]!, 
-      cookTime: TimeInput!, 
+      instructions: String!, 
+      cookTime: String!, 
       imageURL: String, 
       originalLanguage: String!,
-      tags: [RecipeTagInput]
+      tags: [String]
     ): User
     
     updateRecipe(

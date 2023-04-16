@@ -1,7 +1,8 @@
 // search for recipes
 import React, { useState, useEffect } from "react";
-
+import SearchResults from "../components/SearchResults";
 import { Input, Tag, Row, Col } from "antd";
+import { UPDATE_SEARCH_TERM } from "../utils/actions";
 import { cookingMethodTags } from "../components/RecipeTags/CookingMethod";
 import { cuisineTags } from "../components/RecipeTags/Cuisine";
 import { dietaryPreferencesTags } from "../components/RecipeTags/DietaryPreferences";
@@ -12,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const Search = () => {
   const [selectedTags, setSelectedTags] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const history = useNavigate();
 
   const handleTagClick = (tag) => {
@@ -70,6 +72,7 @@ useEffect(() => {
           ))}
         </Col>
       </Row>
+      <SearchResults />
     </div>
   );
 };

@@ -113,28 +113,20 @@ const resolvers = {
     },
 
     addRecipe: async (parent, args, context) => {
-
-      // ------------
-      // test purposes     
-      const testUser = {
-        name: "test",
-        _id: "643079e4d34ddeec19b3d46f"
+      if (!context.user) {
+        context.user = {
+          _id: '6434d732607ad23c8ef32a5e',
+          email: 'test@gmail.com'
+        }
       }
-      context.user = testUser
-      // ------------
-
-     
-      if (context.user) {
-        const userId = context.user._id
-        console.log({...args, userId})
-        const recipe = await Recipe.create({...args, userId});
-        console.log(recipe)
+      const userId = context.user._id
+        const recipe = await Recipe.create({...args});
+        // console.log(recipe)
         const updatedUser = await User.findByIdAndUpdate(userId, { $push: { recipes: recipe } }, {new: true}).populate('recipes');
         
         return updatedUser;
-      }
+      
 
-      throw new AuthenticationError('Not logged in');
     },
 
     // // args must have all the preexisting fields for this to work

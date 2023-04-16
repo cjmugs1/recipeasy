@@ -1,0 +1,46 @@
+/* css for search form */
+  .recipe-container {
+    width: 100%;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    border-radius: 34px;
+  }
+  .back-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E7693E;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 40px;
+    left: 36px;
+    color: white;
+  }
+  .recipe-text {
+    color: #E7693E;
+    font-size: 50px;
+  }
+  .input-field {
+    padding: 16px;
+    width: 362px;
+    margin: 16px;
+    border-radius: 5px;
+    border: 1px solid #f2f2f2;
+    outline: none;
+  }
+  .submit-button {
+    font-family: FontName, sans-serif;
+    font-size: 16px;
+    color: white;
+    margin-top: 24px;
+    padding: 14px;
+    background: #E7693E;
+    border-radius: 32px;
+    width: 300px;
+    border: none;
+  }
