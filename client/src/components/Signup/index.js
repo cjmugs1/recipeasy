@@ -9,6 +9,9 @@ export const Signup = () => {
   const handleBackButton = () => {
     console.log("this is a placeholder for the back button");
   };
+
+
+
   const handleSignup = () => {
     console.log("you put your email in", email);
     console.log("you confirmed your email", confirmPassword);

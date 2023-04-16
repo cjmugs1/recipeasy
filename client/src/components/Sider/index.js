@@ -3,6 +3,7 @@
 // upding Sider index 
 
 import React, { useState } from 'react';
+// import { useNavigation } from 'react-router-dom';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -18,7 +19,10 @@ function SiderComponent() {
 //   const {
 //     token: { colorBgContainer },
 //   } = theme.useToken(); 
-
+  // const navigation = useNavigation();
+  // const handleSearch = () => {
+  //   history.push('/search');
+  // };
   return (
       <div>
         <div className="logo"></div>

@@ -1,14 +1,17 @@
-import React,  { useState } from "react";
-import { useMutation } from '@apollo/client';
-import { Link } from 'react-router-dom';
-import { LOGIN } from '../../utils/mutations';
-import Auth from '../../utils/auth';
-import "./login.css";
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { Link } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
+import { LOGIN } from "../../utils/mutations";
+import Auth from "../../utils/auth";
+import "./login.css"; // import the CSS file
+import { useNavigation } from "react-router-dom";
 
 export default function Login(){
+  const navigation = useNavigation();
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
-
+  
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -34,14 +37,19 @@ export default function Login(){
 
 
   const handleSignup = () => {
-    console.log("you logged in with email", email);
-    console.log("you logged in with password", password);
+    // redirect to signup page
+    
+    navigation.navigate('/signup');
+
   };
 
   return (
+    <Router>
+    <div className="login-wrapper">
     <div
+      className="login-container"
       style={{
-        width: "100%",
+        width: "80%",
         height: "100vh",
         justifyContent: "center",
         alignItems: "center",
@@ -113,7 +121,7 @@ export default function Login(){
           LOG IN
         </button>
       </div>
-
+      <div className="Signup">
       <div position="absolute" top="4px" left="4px">
         <button
           style={{
@@ -133,6 +141,9 @@ export default function Login(){
         </button>
       </div>
     </div>
+  </div>
+  </div>
+  </Router>
   );
 };
 
