@@ -3,30 +3,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../../utils/auth';
+import './header.css';
 export const HeaderComponent = () => {
     const handleLogout = () => {
         Auth.logout();
     };
     return (
-        <header className="flex-row px-1">
-        <h2>
+        <header>
+        <h1>
             <a data-testid="link" href="/">
-            <span role="img" aria-label="recipeasy">🍳</span> Recipeasy
+            {/* <span role="img" aria-label="recipeasy">🍳</span> */}
+            Recipeasy.
             </a>
-        </h2>
+        </h1>
         <nav>
-            <ul className="flex-row">
-            <li className="mx-2">
-                <a data-testid="link" href="/login">
+            {/* <ul className="flex-row">
+            <li className="mx-2"> */}
+                <a class="login" data-testid="link" href="/login">
                 Logout
                 </a>
-            </li>
+            {/* </li> */}
             {/* <li className="mx-2">
                 <a data-testid="link" href="/signup">
                 Signup
                 </a>
             </li> */}
-            </ul>
+            {/* </ul> */}
         </nav>
         </header>
     );
