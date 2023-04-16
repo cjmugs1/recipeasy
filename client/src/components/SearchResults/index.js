@@ -2,11 +2,11 @@
 // card
 
 import React, { useEffect } from "react";
-import RecipeItem from "../RecipeItem";
+// import SearchResults from "../SearchResults";
 import { useStoreContext } from "../../utils/GlobalState";
 import { UPDATE_RECIPES } from "../../utils/actions";
 import { useQuery } from "@apollo/client";
-import { QUERY_RECIPES } from "../../utils/queries";
+import { QUERY_ALL_RECIPES } from "../../utils/queries";
 import { idbPromise } from "../../utils/helpers";
 import spinner from "../../assets/spinner.gif";
 
@@ -15,7 +15,7 @@ function SearchResults() {
 
   const { searchTerm } = state;
 
-  const { loading, data } = useQuery(QUERY_RECIPES);
+  const { loading, data } = useQuery(QUERY_ALL_RECIPES);
 
   useEffect(() => {
     if (data) {
