@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { Link } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+
 import { LOGIN } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import "./login.css"; // import the CSS file
-import { useNavigation } from "react-router-dom";
+
 
 export default function Login(){
-  const navigation = useNavigation();
+  // const navigation = useNavigation();
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
   
@@ -39,12 +39,12 @@ export default function Login(){
   const handleSignup = () => {
     // redirect to signup page
     
-    navigation.navigate('/signup');
+    // navigation.navigate('/signup');
+    window.location.assign('/login');
 
   };
 
   return (
-    <Router>
     <div className="login-wrapper">
     <div
       className="login-container"
@@ -143,7 +143,6 @@ export default function Login(){
     </div>
   </div>
   </div>
-  </Router>
   );
 };
 
