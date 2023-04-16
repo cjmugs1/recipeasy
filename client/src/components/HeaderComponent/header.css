@@ -1,1 +1,25 @@
 /* styling for Header/index.js */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #E7693E;
+    color: white;
+    padding: 10px;
+}
+
+h1 {
+    font-family: "Lobster", cursive;
+    font-size: 50px;
+    text-align: center;
+    margin: 0 auto;
+
+  }
+
+.login {
+    text-decoration: none;
+    font-size: 20px;
+    margin-left: auto;
+    padding-right: 20px;
+}
