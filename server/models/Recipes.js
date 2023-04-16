@@ -25,7 +25,7 @@ const recipeTagSchema = require('./RecipeTag')
 
 const IngredientSchema = new mongoose.Schema({
   quantity: {
-    type: Number,
+    type: String,
     required: true,
   },
   unit: {
