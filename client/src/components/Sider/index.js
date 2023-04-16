@@ -8,6 +8,7 @@ import {
   MenuUnfoldOutlined,
   HomeOutlined,
   UploadOutlined,
+  TagOutlined,
   UserOutlined,
   SearchOutlined,
 } from '@ant-design/icons';
@@ -20,7 +21,7 @@ function SiderComponent() {
 //   } = theme.useToken(); 
 
   return (
-      <div>
+      <div class="side-menu">
         <div className="logo"></div>
         <Menu
           mode="inline"
@@ -38,11 +39,16 @@ function SiderComponent() {
             },
             {
               key: '3',
+              icon: <TagOutlined />,
+              label: 'Categories',
+            },
+            {
+              key: '4',
               icon: <UploadOutlined />,
               label: 'Upload recipe',
             },
             {
-                key: '3',
+                key: '5',
                 icon: <SearchOutlined />,
                 label: 'Search recipes',
               },
