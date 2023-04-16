@@ -3,3 +3,30 @@
 .recipeasy-text {
   font-family: "Lobster", cursive;
 }
+
+body {
+  background: #f2f2f2;
+  margin: 0;
+  padding: 0;
+  font-family: "Lobster", cursive;
+}
+.login-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.login-container {
+  width: 50%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 34px;
+  background: linear-gradient(
+    180deg,
+    #000000 -3.42%,
+    rgba(196, 196, 196, 0) 69.17%
+  );
+}
