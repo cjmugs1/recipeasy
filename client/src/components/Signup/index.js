@@ -6,38 +6,82 @@ import Auth from '../../utils/auth';
 import { ADD_USER } from '../../utils/mutations';
 
 export default function Signup(props) {
-  const [formState, setFormState] = useState({ email: '', password: '' });
+  localStorage.removeItem('id_token')
+  const [formState, setFormState] = useState({ email: '', password: '', username:'', name:'' });
   const [addUser] = useMutation(ADD_USER);
   const navigate = useNavigate()
+
+  const errorMsg = document.getElementById('error')
 
   const handleBackButton = () => {
     return navigate('/')
   }
 
-  const handleFormSubmit = async (event) => {
+  const handleSignup = async (event) => {
     event.preventDefault();
-    const mutationResponse = await addUser({
-      variables: {
-        email: formState.email,
-        password: formState.password,
-        name: formState.name,
-      },
-    });
-    const token = mutationResponse.data.addUser.token;
-    Auth.login(token);
+    try {
+      const mutationResponse = await addUser({
+        variables: {
+          username: formState.username,
+          email: formState.email,
+          password: formState.password,
+          name: formState.name,
+        },
+        
+      });
+      const token = mutationResponse.data.addUser.token;
+        Auth.login(token);
+    } catch (error) {
+
+      if (error.graphQLErrors) {
+        const duplicateKeyError = error.graphQLErrors.find(
+          (e) => e.extensions.code === 'INTERNAL_SERVER_ERROR' && e.message.includes('duplicate key error')
+        );
+        console.log(duplicateKeyError)
+        if (duplicateKeyError) {
+          // Handle duplicate key error here
+          const fieldName = duplicateKeyError.extensions.exception.keyValue;
+          console.log(Object.keys(fieldName))
+          
+          const errorMessage = `This ${Object.keys(fieldName)} is already taken. Please choose a different one.`;
+    
+          console.log(errorMessage);
+          errorMsg.textContent = errorMessage;
+          errorMsg.setAttribute('class', 'alert alert-danger')
+        } else {
+          // Handle other errors
+          console.log(error.message);
+          errorMsg.textContent = error
+          errorMsg.setAttribute('class', 'alert alert-danger')
+        }
+      } else {
+        // Handle other errors
+        console.log(error);
+        errorMsg.textContent = error
+        errorMsg.setAttribute('class', 'alert alert-danger')
+      }
+      
+    }
+    
+    
   };
 
   const handleChange = (event) => {
+    console.log(errorMsg)
+    if (errorMsg) {
+      errorMsg.textContent = ""
+      errorMsg.removeAttribute('class')
+    }
+    
     const { name, value } = event.target;
+    console.log(name)
+    console.log(event.target)
     setFormState({
       ...formState,
       [name]: value,
     });
+    console.log(formState)
   };
-
-  const setConfirmPassword = (password) => {
-    // if
-  }
 
   const back = "<"; //this is a placeholder for the "back" icon
 
@@ -92,6 +136,7 @@ export default function Signup(props) {
           }}
           type="email"
           placeholder="Email"
+          name="email"
         ></input>
       </div>
       <div width="100%" justifyContent="center" alignItems="center">
@@ -107,6 +152,7 @@ export default function Signup(props) {
           onChange={handleChange}
           type="username"
           placeholder="Username"
+          name="username"
         ></input>
       </div>
       <div width="100%" justifyContent="center" alignItems="center">
@@ -120,8 +166,9 @@ export default function Signup(props) {
             border: "1px solid #f2f2f2",
             outline: "none"
           }}
-          type="password"
-          placeholder="Password"
+          type="name"
+          placeholder="Name"
+          name="name"
           onChange={handleChange}
         ></input>
       </div>
@@ -136,10 +183,16 @@ export default function Signup(props) {
             outline: "none"
           }}
           type="password"
-          placeholder="Confirm Password"
-          onChange={(e) => setConfirmPassword(e.target.value)}
+          placeholder="Password"
+          name="password"
+          onChange={handleChange}
         ></input>
       </div>
+      <div width="100%" justifyContent="center" alignItems="center" >
+      <div role="alert" id="error">
+      </div>
+      </div>
+
       <div position="absolute" top="4px" left="4px">
         <button
           style={{
