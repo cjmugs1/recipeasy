@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { loggedIn } from './utils/auth';
+import { StoreProvider } from './utils/GlobalState';
 
 import Home from './pages/Home';
 import Login from './components/Login/index';
@@ -49,22 +50,20 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-
-    
-          <Routes>
-            {/* <Route path="/" element={!loggedIn ? <Login /> : <Home />} /> need to add ! in front of loggedIn to make it work */}
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            {/* <Route path="/donation" element={<Success />} /> */}
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/recipes/:id" element={<Recipes />} />
-            <Route path="/recipes" element={<Recipes />} />
-            <Route path="/add-recipe" element={<AddRecipe />} />
-            {/* <Route path="*" element={<NoMatch />} /> */}
-          </Routes>
-        
+          <StoreProvider>
+            <Routes>
+              <Route path="/" element={loggedIn ? <Login /> : <Home />} /> {/*need to add ! in front of loggedIn to make it work*/}
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              {/* <Route path="/donation" element={<Success />} /> */}
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/search" element={<Search />} />
+              <Route path="/recipes/:id" element={<Recipes />} />
+              <Route path="/recipes" element={<Recipes />} />
+              <Route path="/add-recipe" element={<AddRecipe />} />
+              {/* <Route path="*" element={<NoMatch />} /> */}
+            </Routes>
+          </StoreProvider>
         </div>
       </Router>
     </ApolloProvider>

@@ -62,7 +62,6 @@ const typeDefs = gql`
     name: String
   }
 
-  
   input RecipeTagInput {
     _id: ID
   }
