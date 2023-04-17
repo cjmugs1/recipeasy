@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Route, useNavigate } from "react-router-dom";
 import { useMutation } from '@apollo/client';
 import Auth from '../../utils/auth';
 import { ADD_USER } from '../../utils/mutations';
@@ -7,6 +8,11 @@ import { ADD_USER } from '../../utils/mutations';
 export default Signup = (props) => {
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [addUser] = useMutation(ADD_USER);
+  const navigate = useNavigate()
+
+  const handleBackButton = () => {
+    return navigate('/')
+  }
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -28,6 +34,10 @@ export default Signup = (props) => {
       [name]: value,
     });
   };
+
+  const setConfirmPassword = (password) => {
+    // if
+  }
 
   const back = "<"; //this is a placeholder for the "back" icon
 
@@ -71,7 +81,7 @@ export default Signup = (props) => {
       </div>
       <div width="100%" justifyContent="center" alignItems="center">
         <input
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={handleChange}
           style={{
             padding: "16px",
             width: "362px",
@@ -94,7 +104,7 @@ export default Signup = (props) => {
             border: "1px solid #f2f2f2",
             outline: "none"
           }}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={handleChange}
           type="username"
           placeholder="Username"
         ></input>
@@ -112,7 +122,7 @@ export default Signup = (props) => {
           }}
           type="password"
           placeholder="Password"
-          onChange={(e) => setUsername(e.target.value)}
+          onChange={handleChange}
         ></input>
       </div>
       <div width="100%" justifyContent="center" alignItems="center">

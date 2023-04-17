@@ -10,22 +10,21 @@
 // -------------------------------
 
 const mongoose = require('mongoose');
-const recipeTagSchema = require('./RecipeTag')
 
-// const TimeSchema = new mongoose.Schema({
-//   amount: {
-//     type: Number,
-//     required: true,
-//   },
-//   unit: {
-//     type: String,
-//     required: true
-//   }
-// })
+const TimeSchema = new mongoose.Schema({
+  amount: {
+    type: Number,
+    required: true,
+  },
+  unit: {
+    type: String,
+    required: true
+  }
+})
 
 const IngredientSchema = new mongoose.Schema({
   quantity: {
-    type: Number,
+    type: String,
     required: true,
   },
   unit: {
@@ -54,7 +53,7 @@ const RecipeSchema = new mongoose.Schema({
   ingredients: [IngredientSchema],
   instructions: [String],
   imageURL: String,
-  cookTime: String,//TimeSchema,
+  cookTime: TimeSchema,
   tags: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'RecipeTag'
@@ -68,7 +67,6 @@ const RecipeSchema = new mongoose.Schema({
     default: Date.now(),
   },
 });
-
 
 const Recipe = mongoose.model('Recipe', RecipeSchema);
 

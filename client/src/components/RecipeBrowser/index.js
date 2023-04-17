@@ -18,15 +18,15 @@ function RecipeBrowser() {
 
     const { loading, data } = useQuery(QUERY_ALL_RECIPES);
 
-    console.log(typeof data)
+    console.log(data)
 
     useEffect(() => {
         if (data && data.recipes && data.recipes.length > 0) {
             dispatch({
                 type: UPDATE_RECIPES,
-                recipes: data.recipes,
+                recipes: data.allRecipes,
             });
-            data.recipes.forEach((recipe) => {
+            data.allRecipes.forEach((recipe) => {
                 idbPromise('recipes', 'put', recipe);
             });
         } else if (!loading) {
@@ -39,21 +39,21 @@ function RecipeBrowser() {
         }
     }, [data, loading, dispatch]);
 
-    if (!data || !data.recipes || !Array.isArray(data.recipes)) {
+    if (!data || !data.allRecipes || !Array.isArray(data.allRecipes)) {
         return <div>Loading...</div>;
     }
 
     return (
         <Row gutter={[24, 16]}>
             {/* something like map each recipe in array to a card */}
-            {data.recipes && data.recipes.map((recipe) => (
+            {data.allRecipes.map((recipe) => (
                 <Col span={6}>
                     <RecipeCard
                         key={recipe._id}
                         _id={recipe._id}
                         image={recipe.imageURL}
                         name={recipe.name}
-                        cookTime={recipe.cookTime}
+                        cookTime={recipe.cookTime.amount}
                     />
                 </Col>
             ))}

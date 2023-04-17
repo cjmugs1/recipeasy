@@ -26,13 +26,12 @@ export default function Login(){
   };
 
   const handleChange = (event) => {
-    console.log(event.target)
     const { name, value } = event.target;
     setFormState({
       ...formState,
       [name]: value,
     });
-    console.log(formState)
+
   };
 
 
@@ -40,7 +39,7 @@ export default function Login(){
     // redirect to signup page
     
     // navigation.navigate('/signup');
-    window.location.assign('/login');
+    window.location.assign('/signup');
 
   };
 
