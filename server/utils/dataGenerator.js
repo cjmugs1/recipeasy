@@ -81,7 +81,7 @@ const createRecipe = async (users, recipeTags, numberOfRecipesPerUser) => {
                 ingredients: ingredients,
                 instructions: instructions,
                 cookTime: cookTime,
-                imageURL: faker.image.food(),
+                imageURL: faker.image.food(480,480),
                 tags: tags,
                 originalLanguage: users[i].language,
                 createdAt: Date.now(),
