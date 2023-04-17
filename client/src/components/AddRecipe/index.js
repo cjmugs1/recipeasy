@@ -20,13 +20,17 @@ function addRecipe() {
     unit: [],
   });
 
+  const [timeFormData, setTimeFormData] = useState({
+    amount: null,
+    unit: "",
+  });
+
   const [recipeFormData, setRecipeFormData] = useState({
     name: "",
     description: "",
     instructions: "",
     // tags: [],
     // imageURL: "",
-    cookTime: "",
   });
 
   const handleAddTag = () => {
@@ -85,6 +89,19 @@ function addRecipe() {
       setIngredientsFormData({ ...ingredientsFormData, [field]: data });
       return;
     }
+
+    if (id.includes("time")) {
+      let field;
+      if (id.includes("amount")) {
+        field = "amount";
+      } else {
+        field = "unit";
+      }
+
+      setTimeFormData({ ...timeFormData, [field]: value});
+      return;
+    }
+
     console.log(id);
     setRecipeFormData({ ...recipeFormData, [id]: value });
   };
@@ -97,7 +114,7 @@ function addRecipe() {
     for (let i = 0; i < ingredientsFormData.name.length; i++) {
       let ingredient = {
         name: ingredientsFormData.name[i],
-        quantity: ingredientsFormData.quantity[i],
+        quantity: Number(ingredientsFormData.quantity[i]),
         unit: ingredientsFormData.unit[i],
       };
       ingredients.push(ingredient);
@@ -115,13 +132,17 @@ function addRecipe() {
         ingredients,
         userId,
         originalLanguage: "English",
+        cookTime: timeFormData,
       });
+      let cookTime = timeFormData;
+      cookTime.amount = Number(cookTime.amount)
       const { data } = await addNewRecipe({
         variables: {
           ...recipeFormData,
           ingredients,
           userId,
           originalLanguage: "English",
+          cookTime
         },
       });
       console.log(data);
@@ -133,14 +154,17 @@ function addRecipe() {
       name: "",
       description: "",
       instructions: "",
-    //   tags: [],
-    //   imageURL: "",
-      cookTime: "",
+      //   tags: [],
+      //   imageURL: "",
     });
     setIngredientsFormData({
       name: [],
       quantity: [],
       unit: [],
+    });
+    setTimeFormData({
+      amount: null,
+      unit: "",
     });
     console.log(recipeFormData);
     form.resetFields();
@@ -166,7 +190,7 @@ function addRecipe() {
 
   return (
     <>
-    <button onClick={()=> window.location.assign('/')}>Back to Home</button>
+      <button onClick={() => window.location.assign("/")}>Back to Home</button>
       <div className="d-flex flex-column justify-content-center">
         <h1 className="my-5">Add your Recipe!</h1>
         <Form
@@ -220,10 +244,7 @@ function addRecipe() {
               {(fields, { add, remove }, { errors }) => (
                 <div className="d-flex flex-column align-items-center justify-content-center">
                   {fields.map((field, index) => (
-                    <Form.Item
-                      required={true}
-                      key={field.key}
-                    >
+                    <Form.Item required={true} key={field.key}>
                       <Input.Group compact>
                         <Form.Item
                           name={[field.name, "quantity"]}
@@ -323,65 +344,78 @@ function addRecipe() {
           </Form.Item>
           <Form.Item
             required={true}
-            name="cookTime"
             label="Cooking Time"
-            onChange={handleInputChange}
           >
-            <Input />
+          <Input.Group compact>
+            <Form.Item
+              required={true}
+              name="time-amount"             
+              onChange={handleInputChange}
+            >
+              <Input placeholder="2" />
+            </Form.Item>
+            <Form.Item
+              required={true}
+              name="time-unit"
+              onChange={handleInputChange}
+            >
+              <Input placeholder="hours"/>
+            </Form.Item>
+          </Input.Group>
           </Form.Item>
-          <Form.Item required={false} label="Tags">
-          <Form.List name="tags">
-            {(fields, { add, remove }, { errors }) => (
-              <div className="d-flex flex-column align-items-center justify-content-center">
-                {fields.map((field, index) => (
-                  <Form.Item
-                    required={true}
-                    key={field.key}
-                  >
-                    <Form.Item
-                      name={[field.name, "tag"]}
-                      validateTrigger={["onChange", "onBlur"]}
-                      rules={[
-                        {
-                          required: true,
-                          whitespace: true,
-                          message: "Please add quantity or delete this field.",
-                        },
-                      ]}
-                      onChange={handleInputChange}
-                    >
-                      <Input placeholder="French" style={{ width: "60%" }} />
-                    </Form.Item>
+          
 
-                    {fields.length > 0 ? (
-                      <MinusCircleOutlined
-                        className="dynamic-delete-button"
-                        onClick={(event) => {
-                          event.preventDefault();
-                          handleDeleteTag(field.name);
-                          remove(field.name);
-                        }}
-                      />
-                    ) : null}
+          <Form.Item required={false} label="Tags">
+            <Form.List name="tags">
+              {(fields, { add, remove }, { errors }) => (
+                <div className="d-flex flex-column align-items-center justify-content-center">
+                  {fields.map((field, index) => (
+                    <Form.Item required={true} key={field.key}>
+                      <Form.Item
+                        name={[field.name, "tag"]}
+                        validateTrigger={["onChange", "onBlur"]}
+                        rules={[
+                          {
+                            required: true,
+                            whitespace: true,
+                            message:
+                              "Please add quantity or delete this field.",
+                          },
+                        ]}
+                        onChange={handleInputChange}
+                      >
+                        <Input placeholder="French" style={{ width: "60%" }} />
+                      </Form.Item>
+
+                      {fields.length > 0 ? (
+                        <MinusCircleOutlined
+                          className="dynamic-delete-button"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            handleDeleteTag(field.name);
+                            remove(field.name);
+                          }}
+                        />
+                      ) : null}
+                    </Form.Item>
+                  ))}
+                  <Form.Item>
+                    <Button
+                      type="dashed"
+                      onClick={() => {
+                        handleAddTag();
+                        add();
+                      }}
+                      style={{ width: "100%" }}
+                      icon={<PlusOutlined />}
+                    >
+                      Add Tag
+                    </Button>
+                    <Form.ErrorList errors={errors} />
                   </Form.Item>
-                ))}
-                <Form.Item>
-                  <Button
-                    type="dashed"
-                    onClick={() => {
-                      handleAddTag();
-                      add();
-                    }}
-                    style={{ width: "100%" }}
-                    icon={<PlusOutlined />}
-                  >
-                    Add Tag
-                  </Button>
-                  <Form.ErrorList errors={errors} />
-                </Form.Item>
                 </div>
-            )}
-          </Form.List>
+              )}
+            </Form.List>
           </Form.Item>
 
           <Form.Item label="Upload Image" valuePropName="fileList">
@@ -393,9 +427,7 @@ function addRecipe() {
             </Upload>
           </Form.Item>
           <Form.Item>
-            <Button onClick={handleFormSubmit}>
-              Add Recipe!
-            </Button>
+            <Button onClick={handleFormSubmit}>Add Recipe!</Button>
           </Form.Item>
         </Form>
       </div>
