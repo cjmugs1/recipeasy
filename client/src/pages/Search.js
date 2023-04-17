@@ -1,8 +1,7 @@
-// search for recipes
 import React, { useState, useEffect } from "react";
 import SearchResults from "../components/SearchResults";
 import { Input, Tag, Row, Col } from "antd";
-import { UPDATE_SEARCH_TERM } from "../utils/actions";
+
 import { cookingMethodTags } from "../components/RecipeTags/CookingMethod";
 import { cuisineTags } from "../components/RecipeTags/Cuisine";
 import { dietaryPreferencesTags } from "../components/RecipeTags/DietaryPreferences";
@@ -33,6 +32,10 @@ const Search = () => {
     history.push(queryString);
   };
 
+  const handleInputChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
   const recipeTags = [
     ...cookingMethodTags,
     ...cuisineTags,
@@ -42,37 +45,38 @@ const Search = () => {
     ...occasionTags,
   ];
 
-useEffect(() => {
-}, []);
+  useEffect(() => {
+  }, []);
 
   return (
-   <div>
-      <Row>
-        <Col span={12} offset={6}>
-          <Input.Search
-            placeholder="Search for recipes..."
-            enterButton
-            size="large"
-            style={{ marginBottom: "1rem" }}
-            onSearch={handleSearch}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col span={12} offset={6}>
-          {recipeTags.map((tag) => (
-            <Tag
-              key={tag}
-              onClick={() => handleTagClick(tag)}
-              color={selectedTags.includes(tag) ? "geekblue" : "#d9d9d9"}
-              style={{ cursor: "pointer", marginBottom: "0.5rem" }}
-            >
-              {tag}
-            </Tag>
-          ))}
-        </Col>
-      </Row>
-      <SearchResults />
+    <div
+      style={{
+        width: "100%",
+        height: "100vh",
+        justifyContent: "center",
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        borderRadius: "34px",
+      }}
+    >
+      <div width="100%" justifyContent="center" alignItems="center">
+        <p
+          className="recipeasy-text"
+          style={{ color: "#E7693E", fontSize: "50px" }}
+        >
+          Recipeasy.
+        </p>
+      </div>
+      <Input.Search
+        placeholder="Search for recipes..."
+        enterButton="SEARCH RECIPES"
+        size="large"
+        style={{ marginBottom: "1rem" }}
+        onSearch={handleSearch}
+        onChange={(event) => setSearchTerm(event.target.value)}
+        value={searchTerm}
+      />
     </div>
   );
 };
