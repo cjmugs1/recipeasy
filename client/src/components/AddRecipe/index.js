@@ -166,13 +166,14 @@ function addRecipe() {
 
   return (
     <>
+    <button onClick={()=> window.location.assign('/')}>Back to Home</button>
       <div className="d-flex flex-column justify-content-center">
         <h1 className="my-5">Add your Recipe!</h1>
         <Form
           form={form}
           layout="horizontal"
           style={{
-            padding: "0 5vw",
+            padding: "0 7vw",
             width: "auto",
             display: "flex",
             flexDirection: "column",
@@ -315,7 +316,7 @@ function addRecipe() {
           <Form.Item
             name="instructions"
             required="true"
-            label="instructions"
+            label="Instructions"
             onChange={handleInputChange}
           >
             <TextArea rows={4} />
@@ -328,10 +329,10 @@ function addRecipe() {
           >
             <Input />
           </Form.Item>
-          <Form.Item required={true} label="Tags">
+          <Form.Item required={false} label="Tags">
           <Form.List name="tags">
             {(fields, { add, remove }, { errors }) => (
-              <>
+              <div className="d-flex flex-column align-items-center justify-content-center">
                 {fields.map((field, index) => (
                   <Form.Item
                     required={true}
@@ -369,22 +370,21 @@ function addRecipe() {
                     type="dashed"
                     onClick={() => {
                       handleAddTag();
-
                       add();
                     }}
-                    style={{ width: "60%" }}
+                    style={{ width: "100%" }}
                     icon={<PlusOutlined />}
                   >
                     Add Tag
                   </Button>
                   <Form.ErrorList errors={errors} />
                 </Form.Item>
-              </>
+                </div>
             )}
           </Form.List>
           </Form.Item>
 
-          <Form.Item label="Upload" valuePropName="fileList">
+          <Form.Item label="Upload Image" valuePropName="fileList">
             <Upload action="/upload.do" listType="picture-card">
               <div>
                 <PlusOutlined />
@@ -393,7 +393,7 @@ function addRecipe() {
             </Upload>
           </Form.Item>
           <Form.Item>
-            <Button type="submit" onClick={handleFormSubmit}>
+            <Button onClick={handleFormSubmit}>
               Add Recipe!
             </Button>
           </Form.Item>

@@ -84,6 +84,7 @@ const resolvers = {
       //     email: 'test@gmail.com'
       //   }
       // }
+      console.log(context.user)
       const userId = context.user._id
         const recipe = await Recipe.create({...args});
         // console.log(recipe)
