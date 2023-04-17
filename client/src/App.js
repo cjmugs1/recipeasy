@@ -8,7 +8,7 @@ import { StoreProvider } from './utils/GlobalState';
 import Home from './pages/Home';
 import Login from './components/Login/index';
 import Signup from './components/Signup';
-import Profile from './pages/Profile';
+import Profile from './components/UserProfile';
 import Search from './pages/Search';
 import Recipes from './pages/Recipes';
 import AddRecipe from './components/AddRecipe';

@@ -9,13 +9,16 @@ db.once('open', async () => {
   await User.deleteMany();
   
   // create users and then get all of them from the database with the _id field now populated
-  await createUser(20).then(async (users) => {
+  const users = await createUser(20);
+  console.log(users)
     // this is the mongoDB syntax for inserting multiple documents into a collection, should we be using this instead of the mongoose syntax?
-    await User.collection.insertMany(users)
-  });
-
+  for (let i = 0; i<users.length; i ++) {
+    await User.create(users[i])
+  }
+  console.log("hi")
   const createdUsers = await User.find()
 
+  console.log(createdUsers)
   // create recipe tags and then get all of them from the database with the _id field now populated
   await createRecipeTag(30).then(async (recipeTags) => {
     await RecipeTag.collection.insertMany(recipeTags)

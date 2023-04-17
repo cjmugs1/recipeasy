@@ -64,15 +64,29 @@ query getSingleUser($userId: ID!) {
   singleUser(userId: $userId) {
     username
     recipes {
-      createdAt
+      _id
+      name
+      instructions
       description
+      userId {
+        _id
+      }
+      cookTime {
+       amount
+       unit
+      }
+      createdAt
+      imageURL
       ingredients {
         name
         quantity
         unit
       }
-      name
-      _id
+      originalLanguage
+      tags {
+        _id
+        name
+      }
     }
     _id
   }

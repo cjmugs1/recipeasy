@@ -40,6 +40,9 @@ function SiderComponent() {
               key: '2',
               icon: <UserOutlined />,
               label: 'Profile',
+              onClick: () => {
+                return window.location.assign('/profile')
+              }
             },
             {
               key: '3',

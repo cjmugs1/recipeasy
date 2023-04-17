@@ -22,6 +22,7 @@ const createUser = async (numberOfUsers) => {
             language: `${languageLocales[Math.floor(Math.random() * languageLocales.length)]}`,
             recipes: []
         })
+        console.log(users.password)
     };
     return users;
 }
