@@ -2,6 +2,7 @@ import { useReducer } from 'react';
 import {
   UPDATE_LIKES,
   UPDATE_SEARCH_TERM,
+  UPDATE_RECIPES
 } from './actions';
 
 // The reducer is a function that accepts the current state and an action. It returns a new state based on that action.
@@ -12,6 +13,12 @@ export const reducer = (state, action) => {
       return {
         ...state,
         likes: [...action.likes],
+      };
+    
+      case UPDATE_RECIPES:
+      return {
+        ...state,
+        recipes: [...action.recipes],
       };
 
     case UPDATE_SEARCH_TERM:

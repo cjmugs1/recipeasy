@@ -14,9 +14,11 @@ import RecipeCard from "../RecipeCard";
 
 function RecipeBrowser() {
 
-    const [state, dispatch ] = useStoreContext();
+    const [ state, dispatch ] = useStoreContext();
 
     const { loading, data } = useQuery(QUERY_ALL_RECIPES);
+
+    console.log(typeof data)
 
     useEffect(() => {
         if (data && data.recipes && data.recipes.length > 0) {
@@ -39,8 +41,7 @@ function RecipeBrowser() {
 
     if (!data || !data.recipes || !Array.isArray(data.recipes)) {
         return <div>Loading...</div>;
-      }
-    
+    }
 
     return (
         <Row gutter={[24, 16]}>
