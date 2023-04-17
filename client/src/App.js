@@ -7,11 +7,12 @@ import { StoreProvider } from './utils/GlobalState';
 
 import Home from './pages/Home';
 import Login from './components/Login/index';
-import Signup from './pages/Signup';
+import Signup from './components/Signup';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Recipes from './pages/Recipes';
 import AddRecipe from './components/AddRecipe';
+import ProtectedRoutes from './utils/ProtectedRoutes'
 
 // import { useRecipeasyReducer } from './utils/reducers';
 // import NoMatch from './pages/NoMatch';
@@ -52,16 +53,20 @@ function App() {
         <div>
           <StoreProvider>
             <Routes>
-              <Route path="/" element={loggedIn ? <Login /> : <Home />} /> {/*need to add ! in front of loggedIn to make it work*/}
+              {/* <Route path="/" element={loggedIn ? <Login /> : <Home />} /> need to add ! in front of loggedIn to make it work */}
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               {/* <Route path="/donation" element={<Success />} /> */}
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/search" element={<Search />} />
-              <Route path="/recipes/:id" element={<Recipes />} />
-              <Route path="/recipes" element={<Recipes />} />
-              <Route path="/add-recipe" element={<AddRecipe />} />
-              {/* <Route path="*" element={<NoMatch />} /> */}
+              <Route path = "/" element={<ProtectedRoutes><Home /></ProtectedRoutes>}></Route>
+              <Route path="/add-recipe" element={<ProtectedRoutes><AddRecipe /></ProtectedRoutes>}></Route>
+              <Route path="/profile" element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
+              <Route path="/search" element={<ProtectedRoutes><Search /></ProtectedRoutes>} />
+              <Route path="/recipes/:id" element={<ProtectedRoutes><Recipes /></ProtectedRoutes>} />
+              <Route path="/recipes" element={<ProtectedRoutes><Recipes /></ProtectedRoutes>} />
+              
+              {/* <Route path="*" element={<NoMatch />} /> */}              
+              
+
             </Routes>
           </StoreProvider>
         </div>
