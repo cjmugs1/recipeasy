@@ -6,13 +6,6 @@ import {
   Form,
   Input,
   Button,
-  Radio,
-  Select,
-  Cascader,
-  InputNumber,
-  TreeSelect,
-  Switch,
-  Checkbox,
   Upload,
 } from "antd";
 import { useMutation } from "@apollo/client";
@@ -21,9 +14,7 @@ import Auth from "../../utils/auth";
 
 const { TextArea } = Input;
 
-console.log();
-
-function addRecipe(props) {
+function addRecipe() {
   const [form] = Form.useForm();
   // adds recipe
   const [addNewRecipe, { error }] = useMutation(ADD_RECIPE);
@@ -44,10 +35,8 @@ function addRecipe(props) {
     cookTime: "",
     originalLanguage: ""
   });
-    const userToken = Auth.getProfile();
-    console.log(userToken);
-    const userId = userToken.data._id;
-  setRecipeFormData({...recipeFormData, ["userId"]: userId})
+    
+  console.log(recipeFormData)
 
   const handleAddTag = () => {
     let updatedTags = recipeFormData.tags;
@@ -127,22 +116,11 @@ function addRecipe(props) {
     
 
     try {
-    //   const newRecipe = await addNewRecipe({
-    //     variables: {
-    //       userId: "643079e4d34ddeec19b3d46f",
-    //       name: "Fat bacon bits",
-    //       description: "parmesan with queso",
-    //       ingredients: [
-    //         { name: "carrots", quantity: 3, unit: "carrrots" },
-    //         { name: "greated parmesan", quantity: 5, unit: "cup" },
-    //       ],
-    //       instructions: "chop it",
-    //       cookTime: "12 min",
-    //       originalLanguage: "English",
-    //     },
-    //   });
-    //   console.log(newRecipe);
-        console.log({...recipeFormData, ingredients})
+        // add user id 
+        const userToken = Auth.getProfile();
+        const userId = userToken.data._id;
+        setRecipeFormData({...recipeFormData, ["userId"]: userId})
+        
         const {data} = await addNewRecipe(
             {
             variables: {...recipeFormData, ingredients}
