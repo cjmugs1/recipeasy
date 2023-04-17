@@ -2,14 +2,14 @@ import { React } from "react";
 import { Link } from "react-router-dom";
 import { Card } from 'antd';
 
-function RecipeCard(recipe) {
+function RecipeCard(props) {
     
     const {
         _id,
         image,
         name,
         cookTime
-    } = recipe;
+    } = props.recipe;
 
     return (
       <Link to={`/products/${_id}`}>

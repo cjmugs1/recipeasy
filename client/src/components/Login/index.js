@@ -6,6 +6,7 @@ import { LOGIN } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import "./login.css"; // import the CSS file
 
+
 export default function Login(){
   // const navigation = useNavigation();
   const [formState, setFormState] = useState({ email: '', password: '' });
@@ -144,4 +145,3 @@ export default function Login(){
   </div>
   );
 };
-

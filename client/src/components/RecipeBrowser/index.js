@@ -14,12 +14,12 @@ import RecipeCard from "../RecipeCard";
 
 function RecipeBrowser() {
 
-    const [ dispatch ] = useStoreContext();
+    const [state, dispatch ] = useStoreContext();
 
     const { loading, data } = useQuery(QUERY_ALL_RECIPES);
 
     useEffect(() => {
-        if (data) {
+        if (data && data.recipes && data.recipes.length > 0) {
             dispatch({
                 type: UPDATE_RECIPES,
                 recipes: data.recipes,
@@ -45,7 +45,7 @@ function RecipeBrowser() {
     return (
         <Row gutter={[24, 16]}>
             {/* something like map each recipe in array to a card */}
-            {data.recipes.map((recipe) => (
+            {data.recipes && data.recipes.map((recipe) => (
                 <Col span={6}>
                     <RecipeCard
                         key={recipe._id}
