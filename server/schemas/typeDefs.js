@@ -95,7 +95,7 @@ const typeDefs = gql`
       description: String!, 
       ingredients: [IngredientInput]!, 
       instructions: String!, 
-      cookTime: String!, 
+      cookTime: TimeInput!, 
       imageURL: String, 
       originalLanguage: String!,
       tags: [String]
