@@ -5,12 +5,28 @@ import { gql } from '@apollo/client';
 export const QUERY_ALL_RECIPES = gql`
   query getAllRecipes {
     allRecipes {
+    _id
+    name
+    instructions
+    description
+    userId {
+      _id
+    }
+    cookTime {
+     amount
+     unit
+    }
+    createdAt
+    imageURL
+    ingredients {
+      name
+      quantity
+      unit
+    }
+    originalLanguage
+    tags {
       _id
       name
-      instructions
-      description
-      userId {
-      _id
     }
   }
 }
