@@ -57,7 +57,7 @@ const typeDefs = gql`
   }
 
   input IngredientInput {
-    quantity: Int
+    quantity: String
     unit: String
     name: String
   }
@@ -105,7 +105,7 @@ const typeDefs = gql`
       recipeId: ID!, 
       name: String, 
       description: String, 
-      ingredients: [String], 
+      ingredients: [IngredientInput], 
       instructions: [String], 
       cookTime: String,  
       imageURL: String,

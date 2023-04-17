@@ -50,6 +50,9 @@ function SiderComponent() {
               key: '4',
               icon: <UploadOutlined />,
               label: 'Upload recipe',
+              onClick: () => {
+                return window.location.assign('/add-recipe')
+              }
             },
             {
                 key: '5',

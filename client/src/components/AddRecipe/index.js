@@ -2,12 +2,7 @@
 
 import { React, useState } from "react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import {
-  Form,
-  Input,
-  Button,
-  Upload,
-} from "antd";
+import { Form, Input, Button, Upload } from "antd";
 import { useMutation } from "@apollo/client";
 import { ADD_RECIPE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
@@ -26,17 +21,13 @@ function addRecipe() {
   });
 
   const [recipeFormData, setRecipeFormData] = useState({
-    userId: "",
     name: "",
     description: "",
     instructions: "",
-    tags: [],
-    imageURL: "",
+    // tags: [],
+    // imageURL: "",
     cookTime: "",
-    originalLanguage: ""
   });
-    
-  console.log(recipeFormData)
 
   const handleAddTag = () => {
     let updatedTags = recipeFormData.tags;
@@ -63,11 +54,11 @@ function addRecipe() {
     ingredients.quantity.push("");
     ingredients.unit.push("");
     setIngredientsFormData(ingredients);
+    console.log(ingredientsFormData);
   };
 
   const handleInputChange = (event) => {
     const { id, value } = event.target;
-    console.log(id);
 
     if (id.includes("tags")) {
       const index = id.match(/\d+/)[0];
@@ -80,7 +71,6 @@ function addRecipe() {
     if (id.includes("ingredients")) {
       const index = id.match(/\d+/)[0];
       let field;
-      console.log;
       if (id.includes("quantity")) {
         field = "quantity";
       } else if (id.includes("unit")) {
@@ -93,10 +83,9 @@ function addRecipe() {
       data[index] = value;
 
       setIngredientsFormData({ ...ingredientsFormData, [field]: data });
-      console.log(ingredientsFormData);
       return;
     }
-
+    console.log(id);
     setRecipeFormData({ ...recipeFormData, [id]: value });
   };
 
@@ -104,29 +93,38 @@ function addRecipe() {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     console.log("pressed");
-    let ingredients = []
-    for (let i = 0; i<ingredientsFormData.name.length; i++) {
-        let ingredient = {
-            name: ingredientsFormData.name,
-            quantity: ingredientsFormData.quantity,
-            unit: ingredientsFormData.unit
-        }
-        ingredients.push(ingredient)
+    let ingredients = [];
+    for (let i = 0; i < ingredientsFormData.name.length; i++) {
+      let ingredient = {
+        name: ingredientsFormData.name[i],
+        quantity: ingredientsFormData.quantity[i],
+        unit: ingredientsFormData.unit[i],
+      };
+      ingredients.push(ingredient);
     }
-    
+    console.log(ingredients);
 
     try {
-        // add user id 
-        const userToken = Auth.getProfile();
-        const userId = userToken.data._id;
-        setRecipeFormData({...recipeFormData, ["userId"]: userId})
-        
-        const {data} = await addNewRecipe(
-            {
-            variables: {...recipeFormData, ingredients}
-          });
-          console.log(data)
-
+      // add user id
+      const userToken = Auth.getProfile();
+      const userId = userToken.data._id;
+      console.log(userId);
+      console.log(recipeFormData);
+      console.log({
+        ...recipeFormData,
+        ingredients,
+        userId,
+        originalLanguage: "English",
+      });
+      const { data } = await addNewRecipe({
+        variables: {
+          ...recipeFormData,
+          ingredients,
+          userId,
+          originalLanguage: "English",
+        },
+      });
+      console.log(data);
     } catch (err) {
       console.error(err);
     }
@@ -134,12 +132,17 @@ function addRecipe() {
     setRecipeFormData({
       name: "",
       description: "",
-      ingredients: [],
       instructions: "",
-      tags: [],
-      imageURL: "",
+    //   tags: [],
+    //   imageURL: "",
       cookTime: "",
     });
+    setIngredientsFormData({
+      name: [],
+      quantity: [],
+      unit: [],
+    });
+    console.log(recipeFormData);
     form.resetFields();
   };
 
@@ -163,61 +166,180 @@ function addRecipe() {
 
   return (
     <>
-      <Form
-        form={form}
-        labelCol={{ span: 4 }}
-        wrapperCol={{ span: 14 }}
-        layout="horizontal"
-        style={{ maxWidth: 800 }}
-        onSubmit={handleFormSubmit}
-      >
-        <Form.Item
-          required={true}
-          label="Recipe Name"
-          name="name"
-          onChange={handleInputChange}
+    <button onClick={()=> window.location.assign('/')}>Back to Home</button>
+      <div className="d-flex flex-column justify-content-center">
+        <h1 className="my-5">Add your Recipe!</h1>
+        <Form
+          form={form}
+          layout="horizontal"
+          style={{
+            padding: "0 7vw",
+            width: "auto",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+          onSubmit={handleFormSubmit}
         >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            required={true}
+            label="Recipe Name"
+            name="name"
+            onChange={handleInputChange}
+          >
+            <Input />
+          </Form.Item>
 
-        <Form.Item
-          required={true}
-          label="Description"
-          name="description"
-          onChange={handleInputChange}
-        >
-          <Input />
-        </Form.Item>
+          <Form.Item
+            required={true}
+            label="Description"
+            name="description"
+            onChange={handleInputChange}
+          >
+            <Input />
+          </Form.Item>
 
-        {/* Ingredients  */}
-        <Form.List
-          name="ingredients"
-          rules={[
-            {
-              validator: async (_, names) => {
-                if (!names || names.length < 2) {
-                  return Promise.reject(
-                    new Error("At least 2 ingredients required")
-                  );
-                }
-              },
-            },
-          ]}
-        >
-          {(fields, { add, remove }, { errors }) => (
-            <>
-              {fields.map((field, index) => (
-                <Form.Item
-                  {...(index === 0
-                    ? formItemLayout
-                    : formItemLayoutWithOutLabel)}
-                  label={index === 0 ? "Ingredients" : ""}
-                  required={false}
-                  key={field.key}
-                >
-                  <Input.Group compact>
+          {/* Ingredients  */}
+          <Form.Item required={true} label="Ingredients">
+            <Form.List
+              label="Ingredients"
+              name="ingredients"
+              rules={[
+                {
+                  validator: async (_, names) => {
+                    if (!names || names.length < 2) {
+                      return Promise.reject(
+                        new Error("At least 2 ingredients required")
+                      );
+                    }
+                  },
+                  required: true,
+                },
+              ]}
+            >
+              {(fields, { add, remove }, { errors }) => (
+                <div className="d-flex flex-column align-items-center justify-content-center">
+                  {fields.map((field, index) => (
                     <Form.Item
-                      name={[field.name, "quantity"]}
+                      required={true}
+                      key={field.key}
+                    >
+                      <Input.Group compact>
+                        <Form.Item
+                          name={[field.name, "quantity"]}
+                          validateTrigger={["onChange", "onBlur"]}
+                          rules={[
+                            {
+                              required: true,
+                              whitespace: true,
+                              message:
+                                "Please add quantity or delete this field.",
+                            },
+                          ]}
+                          onChange={handleInputChange}
+                        >
+                          <Input
+                            placeholder="Quantity (eg: 2)"
+                            style={{ width: "60%" }}
+                          />
+                        </Form.Item>
+                        <Form.Item
+                          name={[field.name, "unit"]}
+                          validateTrigger={["onChange", "onBlur"]}
+                          rules={[
+                            {
+                              required: false,
+                              whitespace: true,
+                            },
+                          ]}
+                          onChange={handleInputChange}
+                        >
+                          <Input
+                            placeholder="Unit (eg: cups) Not required"
+                            style={{ width: "60%" }}
+                          />
+                        </Form.Item>
+                        <Form.Item
+                          name={[field.name, "ingredient"]}
+                          validateTrigger={["onChange", "onBlur"]}
+                          rules={[
+                            {
+                              required: true,
+                              whitespace: true,
+                              message:
+                                "Please add an ingredient or delete this field.",
+                            },
+                          ]}
+                          onChange={handleInputChange}
+                        >
+                          <Input
+                            placeholder="Ingredient (eg: chopped walnuts)"
+                            style={{ width: "60%" }}
+                          />
+                        </Form.Item>
+                      </Input.Group>
+
+                      {fields.length > 2 ? (
+                        <MinusCircleOutlined
+                          className="dynamic-delete-button"
+                          onClick={(event) => {
+                            event.preventDefault();
+                            console.log(field.name);
+                            handleIngredientDelete(field.name);
+                            console.log("hi");
+                            remove(field.name);
+                          }}
+                        />
+                      ) : null}
+                    </Form.Item>
+                  ))}
+                  <Form.Item>
+                    <Button
+                      type="dashed"
+                      onClick={() => {
+                        handleAddIngredient();
+                        add();
+                      }}
+                      style={{ width: "100%" }}
+                      icon={<PlusOutlined />}
+                    >
+                      Add Ingredient
+                    </Button>
+                    <Form.ErrorList errors={errors} />
+                  </Form.Item>
+                </div>
+              )}
+            </Form.List>
+          </Form.Item>
+
+          {/* instructions */}
+          <Form.Item
+            name="instructions"
+            required="true"
+            label="Instructions"
+            onChange={handleInputChange}
+          >
+            <TextArea rows={4} />
+          </Form.Item>
+          <Form.Item
+            required={true}
+            name="cookTime"
+            label="Cooking Time"
+            onChange={handleInputChange}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item required={false} label="Tags">
+          <Form.List name="tags">
+            {(fields, { add, remove }, { errors }) => (
+              <div className="d-flex flex-column align-items-center justify-content-center">
+                {fields.map((field, index) => (
+                  <Form.Item
+                    required={true}
+                    key={field.key}
+                  >
+                    <Form.Item
+                      name={[field.name, "tag"]}
                       validateTrigger={["onChange", "onBlur"]}
                       rules={[
                         {
@@ -228,165 +350,55 @@ function addRecipe() {
                       ]}
                       onChange={handleInputChange}
                     >
-                      <Input
-                        placeholder="Quantity (eg: 2)"
-                        style={{ width: "60%" }}
-                      />
+                      <Input placeholder="French" style={{ width: "60%" }} />
                     </Form.Item>
-                    <Form.Item
-                      name={[field.name, "unit"]}
-                      validateTrigger={["onChange", "onBlur"]}
-                      rules={[
-                        {
-                          required: false,
-                          whitespace: true,
-                        },
-                      ]}
-                      onChange={handleInputChange}
-                    >
-                      <Input
-                        placeholder="Unit (eg: cups) Not required"
-                        style={{ width: "60%" }}
+
+                    {fields.length > 0 ? (
+                      <MinusCircleOutlined
+                        className="dynamic-delete-button"
+                        onClick={(event) => {
+                          event.preventDefault();
+                          handleDeleteTag(field.name);
+                          remove(field.name);
+                        }}
                       />
-                    </Form.Item>
-                    <Form.Item
-                      name={[field.name, "ingredient"]}
-                      validateTrigger={["onChange", "onBlur"]}
-                      rules={[
-                        {
-                          required: true,
-                          whitespace: true,
-                          message:
-                            "Please add an ingredient or delete this field.",
-                        },
-                      ]}
-                      onChange={handleInputChange}
-                    >
-                      <Input
-                        placeholder="Ingredient (eg: chopped walnuts)"
-                        style={{ width: "60%" }}
-                      />
-                    </Form.Item>
-                  </Input.Group>
-
-                  {fields.length > 2 ? (
-                    <MinusCircleOutlined
-                      className="dynamic-delete-button"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        console.log(field.name);
-                        handleIngredientDelete(field.name);
-                        console.log("hi");
-                        remove(field.name);
-                      }}
-                    />
-                  ) : null}
-                </Form.Item>
-              ))}
-              <Form.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => {
-                    handleAddIngredient();
-
-                    add();
-                  }}
-                  style={{ width: "60%" }}
-                  icon={<PlusOutlined />}
-                >
-                  Add Ingredient
-                </Button>
-                <Form.ErrorList errors={errors} />
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-
-        {/* instructions */}
-        <Form.Item name="instructions" required="true" label="instructions">
-          <TextArea rows={4} />
-        </Form.Item>
-        <Form.Item
-          required={true}
-          name="cookTime"
-          label="Cooking Time"
-          onChange={handleInputChange}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.List name="tags">
-          {(fields, { add, remove }, { errors }) => (
-            <>
-              {fields.map((field, index) => (
-                <Form.Item
-                  {...(index === 0
-                    ? formItemLayout
-                    : formItemLayoutWithOutLabel)}
-                  label={index === 0 ? "Tags" : ""}
-                  required={false}
-                  key={field.key}
-                >
-                  <Form.Item
-                    name={[field.name, "tag"]}
-                    validateTrigger={["onChange", "onBlur"]}
-                    rules={[
-                      {
-                        required: true,
-                        whitespace: true,
-                        message: "Please add quantity or delete this field.",
-                      },
-                    ]}
-                    onChange={handleInputChange}
-                  >
-                    <Input placeholder="French" style={{ width: "60%" }} />
+                    ) : null}
                   </Form.Item>
-
-                  {fields.length > 0 ? (
-                    <MinusCircleOutlined
-                      className="dynamic-delete-button"
-                      onClick={(event) => {
-                        event.preventDefault();
-                        handleDeleteTag(field.name);
-                        remove(field.name);
-                      }}
-                    />
-                  ) : null}
+                ))}
+                <Form.Item>
+                  <Button
+                    type="dashed"
+                    onClick={() => {
+                      handleAddTag();
+                      add();
+                    }}
+                    style={{ width: "100%" }}
+                    icon={<PlusOutlined />}
+                  >
+                    Add Tag
+                  </Button>
+                  <Form.ErrorList errors={errors} />
                 </Form.Item>
-              ))}
-              <Form.Item>
-                <Button
-                  type="dashed"
-                  onClick={() => {
-                    handleAddTag();
+                </div>
+            )}
+          </Form.List>
+          </Form.Item>
 
-                    add();
-                  }}
-                  style={{ width: "60%" }}
-                  icon={<PlusOutlined />}
-                >
-                  Add Tag
-                </Button>
-                <Form.ErrorList errors={errors} />
-              </Form.Item>
-            </>
-          )}
-        </Form.List>
-
-        <Form.Item label="Upload" valuePropName="fileList">
-          <Upload action="/upload.do" listType="picture-card">
-            <div>
-              <PlusOutlined />
-              <div style={{ marginTop: 8 }}>Upload</div>
-            </div>
-          </Upload>
-        </Form.Item>
-        <Form.Item>
-          <Button type="submit" onClick={handleFormSubmit}>
-            Add Recipe!
-          </Button>
-        </Form.Item>
-      </Form>
+          <Form.Item label="Upload Image" valuePropName="fileList">
+            <Upload action="/upload.do" listType="picture-card">
+              <div>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </div>
+            </Upload>
+          </Form.Item>
+          <Form.Item>
+            <Button onClick={handleFormSubmit}>
+              Add Recipe!
+            </Button>
+          </Form.Item>
+        </Form>
+      </div>
     </>
   );
 }
