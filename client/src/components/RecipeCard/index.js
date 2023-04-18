@@ -17,8 +17,10 @@ function RecipeCard(recipe) {
         <Card title={name} bordered={false}>
           <p>{cookTime} {cookTimeUnit}</p>
           <img src={image}/>
+          
         </Card>
-      </Link>
+        </Link>
+      
     );
 }
 
