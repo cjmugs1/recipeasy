@@ -78,18 +78,13 @@ const resolvers = {
     },
 
     addRecipe: async (parent, args, context) => {
-      if (!context.user) {
-        context.user = {
-          _id: '6434d732607ad23c8ef32a5e',
-          email: 'test@gmail.com'
-        }
-      }
+      
       console.log(context.user)
       const userId = context.user._id
         const recipe = await Recipe.create({...args});
         // console.log(recipe)
         const updatedUser = await User.findByIdAndUpdate(userId, { $push: { recipes: recipe } }, {new: true}).populate('recipes');
-        
+        console.log(updatedUser)
         return updatedUser;
       
 
@@ -121,19 +116,14 @@ const resolvers = {
     // }
 
     removeRecipe: async (parent, {recipeId, chefId}, context) => {
-      const testUser = {
-        name: "test",
-        _id: "643079e4d34ddeec19b3d46f"
-      }
-      context.user = testUser
-      // ------------
-
-     
+      console.log(context.user)
       if (context.user) {
         const userId = context.user._id
 
         if (chefId === userId) {
 
+          const recipe = Recipe.findOne({_id: recipeId})
+          console.log(recipe)
           await Recipe.deleteOne({_id: recipeId})
 
           const updatedUser = await User.findOneAndUpdate({_id: userId}, {$pull: {recipe: {_id: recipeId}}}).populate('recipes')
