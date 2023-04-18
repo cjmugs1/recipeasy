@@ -88,10 +88,10 @@ export default function Profile() {
                         name={recipe.name}
                         cookTime={recipe.cookTime.amount + " " + recipe.cookTime.unit}
                     />
-                    <Dropdown menu={{ items }} placement="bottom">
+                    {/* <Dropdown menu={{ items }} placement="bottom">
         
                     <Button>options</Button>
-                  </Dropdown>
+                  </Dropdown> */}
                 </Col>
             ))}
         </Row>      

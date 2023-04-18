@@ -8,17 +8,18 @@ function RecipeCard(recipe) {
         _id,
         image,
         name,
-        cookTime
+        cookTime,
+        cookTimeUnit
     } = recipe;
 
     return (
-      
+      <Link to={`/recipes/${_id}`}>
         <Card title={name} bordered={false}>
-          <Link to={`/products/${_id}`}>
-          <p>{cookTime}</p>
+          <p>{cookTime} {cookTimeUnit}</p>
           <img src={image}/>
-          </Link>
+          
         </Card>
+        </Link>
       
     );
 }

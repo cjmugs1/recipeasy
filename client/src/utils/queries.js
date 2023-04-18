@@ -35,10 +35,28 @@ export const QUERY_ALL_RECIPES = gql`
 export const QUERY_RECIPE_BY_ID = gql`
 query getSingleRecipe($recipeId: ID!) {
   singleRecipe(recipeId: $recipeId) {
+    _id
     name
+    instructions
+    description
+    userId {
+      _id
+    }
     cookTime {
-      amount
+     amount
+     unit
+    }
+    createdAt
+    imageURL
+    ingredients {
+      name
+      quantity
       unit
+    }
+    originalLanguage
+    tags {
+      _id
+      name
     }
   }
 }

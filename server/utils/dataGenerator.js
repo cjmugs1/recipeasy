@@ -52,7 +52,7 @@ const createRecipe = async (users, recipeTags, numberOfRecipesPerUser) => {
             // where 6 is the number of ingredients per recipe
             for (let k=0; k < 6; k++){
                 ingredients.push({
-                    quantity: faker.datatype.number(10),
+                    quantity: faker.datatype.number({min:1, max: 10}),
                     unit: faker.science.unit().name,
                     name: faker.commerce.productMaterial(),
                 })
@@ -65,7 +65,7 @@ const createRecipe = async (users, recipeTags, numberOfRecipesPerUser) => {
             }
 
             const cookTime = {
-                amount: faker.datatype.number(10),
+                amount: faker.datatype.number({min:1, max: 10}),
                 unit: cookingUnits[Math.floor(Math.random() * cookingUnits.length)],
             }
             
