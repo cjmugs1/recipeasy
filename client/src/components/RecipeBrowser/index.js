@@ -51,6 +51,7 @@ function RecipeBrowser() {
                         name={recipe.name}
                         cookTime={recipe.cookTime.amount}
                         cookTimeUnit = {recipe.cookTime.unit}
+                        chefId={recipe.userId._id}
                     />
                 </Col>
             ))}
