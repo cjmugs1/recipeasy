@@ -27,7 +27,7 @@ function DisplayRecipe () {
 
     return (
         <div> 
-            {singleRecipe ? (
+            {singleRecipe.name ? (
                 <Card style={{ width: '100%' }}>
                     <Meta title={singleRecipe.name} description={singleRecipe.description} />
                     <h2>Cook Time</h2>
