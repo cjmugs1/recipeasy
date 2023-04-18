@@ -1,1 +1,0 @@
-// code to render recipes depending on route path
