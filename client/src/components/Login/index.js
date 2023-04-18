@@ -11,6 +11,8 @@ export default function Login(){
   // const navigation = useNavigation();
   const [formState, setFormState] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(LOGIN);
+
+  const errorMsg = document.getElementById('error')
   
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -18,10 +20,18 @@ export default function Login(){
       const mutationResponse = await login({
         variables: { email: formState.email, password: formState.password },
       });
+      if (!mutationResponse.data.login) {
+        errorMsg.textContent = "Incorrect Email or Password"
+        errorMsg.setAttribute('class', 'alert alert-danger')
+      }
       const token = mutationResponse.data.login.token;
       Auth.login(token);
     } catch (e) {
       console.log(e);
+     
+        errorMsg.textContent = "Incorrect Email or Password"
+        errorMsg.setAttribute('class', 'alert alert-danger')
+      
     }
   };
 
@@ -102,6 +112,10 @@ export default function Login(){
         ></input>
       </div>
 
+      <error>
+          <div id="error"></div>
+      </error>
+
       <div position="absolute" top="4px" left="4px">
         <button
           style={{
@@ -138,6 +152,7 @@ export default function Login(){
         >
           SIGN UP
         </button>
+        
       </div>
     </div>
   </div>

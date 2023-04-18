@@ -78,12 +78,12 @@ const resolvers = {
     },
 
     addRecipe: async (parent, args, context) => {
-      // if (!context.user) {
-      //   context.user = {
-      //     _id: '6434d732607ad23c8ef32a5e',
-      //     email: 'test@gmail.com'
-      //   }
-      // }
+      if (!context.user) {
+        context.user = {
+          _id: '6434d732607ad23c8ef32a5e',
+          email: 'test@gmail.com'
+        }
+      }
       console.log(context.user)
       const userId = context.user._id
         const recipe = await Recipe.create({...args});

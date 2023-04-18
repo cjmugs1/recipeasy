@@ -2,62 +2,59 @@
 // name, email, language, saved recipes
 
 import React, { useState } from 'react';
-import { UPDATE_ACCOUNT_NAME, UPDATE_LANGUAGE } from '../utils/actions';
-import { useAccountContext } from '../utils/GlobalState';
+import LayoutComponent from '../LayoutComponent';
+import {QUERY_USER_BY_ID} from '../../utils/queries';
+import { useQuery } from '@apollo/client';
+import Auth from '../../utils/auth'
 
-export default function AccountDisplay() {
-  const [state, dispatch] = useAccountContext();
-  const [newName, setNewName] = useState(state.userName);
-  const [updatingName, setUpdatingName] = useState(false);
+import { Layout, Col, Row } from 'antd';
+import RecipeCard from "../RecipeCard";
 
-  const toggleUpdateName = () => {
-    setUpdatingName(!updatingName);
-  };
+// import { UPDATE_ACCOUNT_NAME, UPDATE_LANGUAGE } from '../utils/actions';
+// import { useAccountContext } from '../utils/GlobalState';
 
-  const handleInputSubmit = () => {
-    dispatch({
-      type: UPDATE_ACCOUNT_NAME,
-      userName: newName,
-    });
-    setUpdatingName(!updatingName);
-  };
+export default function Profile() {
+  
+  const user = Auth.getProfile()
+  const userId = user.data._id
+  console.log(userId)
 
-  const handleInputChange = (e) => {
-    setNewName(e.target.value);
-  };
+  const { loading, data } = useQuery(QUERY_USER_BY_ID, {
+    variables: { userId},
+  });
+
+  if (loading) {
+    return <h2>loading...</h2>
+  }
+
+  
+  const userInfo = data.singleUser;
+  console.log(userInfo)
+  const recipes = userInfo.recipes
+  console.log(recipes)
 
   return (
     <>
-      {state.isLoggedIn ? (
-        <>
-          <h1>Hello {state.userName}!</h1>
-          {updatingName ? (
-            <div>
-              <input
-                placeholder="New userName"
-                onChange={handleInputChange}
-                onSubmit={handleInputSubmit}
-              ></input>
-              <button onClick={handleInputSubmit}>Submit</button>
-            </div>
-          ) : (
-            <button onClick={toggleUpdateName}>Update userName</button>
-          )}
-          <span>You are signed in to Recipeasy</span>
-        </>
-      ) : (
-        <h1>Please log in</h1>
-      )}
-      <button
-        onClick={() =>
-          dispatch({
-            type: UPDATE_ACCOUNT_STATUS,
-            isLoggedIn: state.isLoggedIn,
-          })
-        }
-      >
-        {state.isLoggedIn ? 'Log out' : 'Log in'}
-      </button>
+    <LayoutComponent>
+      <h2>{userInfo.username}</h2>
+
+      <Row gutter={[24, 16]}>
+            {/* something like map each recipe in array to a card */}
+            {recipes.map((recipe) => (
+                <Col span={6}>
+                    <RecipeCard
+                        key={recipe._id}
+                        _id={recipe._id}
+                        image={recipe.imageURL}
+                        name={recipe.name}
+                        cookTime={recipe.cookTime.amount}
+                    />
+                </Col>
+            ))}
+        </Row>      
+
+    </LayoutComponent>
+      
     </>
   );
 }
