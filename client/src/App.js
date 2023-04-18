@@ -54,7 +54,7 @@ function App() {
         <div>
           <StoreProvider>
             <Routes>
-              <Route path="/" element={loggedIn ? <Login /> : <Home />} /> need to add ! in front of loggedIn to make it work
+              {/* <Route path="/" element={loggedIn ? <Login /> : <Home />} /> need to add ! in front of loggedIn to make it work */}
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path = "/" element={<ProtectedRoutes><Home /></ProtectedRoutes>} />
