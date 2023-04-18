@@ -60,7 +60,7 @@ function App() {
               <Route path="/add-recipe" element={<ProtectedRoutes><AddRecipe /></ProtectedRoutes>} />
               <Route path="/profile" element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
               <Route path="/search" element={<ProtectedRoutes><Search /></ProtectedRoutes>} />
-              <Route path="/recipes/:id" element={<ProtectedRoutes><Recipes /></ProtectedRoutes>} />
+              <Route path="/recipes/:id" element={<ProtectedRoutes><Recipe /></ProtectedRoutes>} />
             </Routes>
           </StoreProvider>
         </div>
