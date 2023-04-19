@@ -35,6 +35,9 @@ function SiderComponent() {
               key: '1',
               icon: <HomeOutlined />,
               label: 'Home',
+              onClick: () => {
+                return window.location.assign('/')
+              }
             },
             {
               key: '2',

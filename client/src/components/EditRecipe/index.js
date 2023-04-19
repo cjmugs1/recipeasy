@@ -250,7 +250,7 @@ const [updateRecipe, {error}] = useMutation(UPDATE_RECIPE);
     });
     console.log(recipeFormData);
     form.resetFields();
-    window.location.assign('/profile')
+    window.location.assign('/')
   };
 
   return (
