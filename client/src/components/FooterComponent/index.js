@@ -15,10 +15,10 @@ const FooterComponent = () => {
         
           
           <h4>&copy; {new Date().getFullYear()} - Recipeasy.</h4>
-          <div class="social-icons">
-      <a href="#"><i class="fab fa-facebook"><FacebookOutlined /></i></a>
-      <a href="#"><i class="fab fa-instagram"><InstagramOutlined /></i></a>
-      <a href="#"><i class="fab fa-twitter"><TwitterOutlined /></i></a>
+          <div className="social-icons">
+      <a href="#"><i className="fab fa-facebook"><FacebookOutlined /></i></a>
+      <a href="#"><i className="fab fa-instagram"><InstagramOutlined /></i></a>
+      <a href="#"><i className="fab fa-twitter"><TwitterOutlined /></i></a>
     </div>
         
       </footer>

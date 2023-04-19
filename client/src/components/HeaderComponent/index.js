@@ -20,7 +20,7 @@ export const HeaderComponent = () => {
         <nav>
             {/* <ul className="flex-row">
             <li className="mx-2"> */}
-                <a class="login" data-testid="link" onClick={handleLogout}>
+                <a className="login" data-testid="link" onClick={handleLogout}>
                 Logout
                 </a>
             {/* </li> */}
