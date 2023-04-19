@@ -15,14 +15,9 @@ import AddRecipe from './components/AddRecipe';
 import ProtectedRoutes from './utils/ProtectedRoutes'
 import EditRecipe from './components/EditRecipe';
 
-// import { useRecipeasyReducer } from './utils/reducers';
-// import NoMatch from './pages/NoMatch';
-
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: '/graphql',
 });
-
-
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("id_token");
