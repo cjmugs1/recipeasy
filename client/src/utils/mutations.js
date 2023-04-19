@@ -57,6 +57,14 @@ mutation addRecipe($userId: ID!, $name: String!, $description: String!, $ingredi
 }
 `;
 
+export const UPDATE_RECIPE = gql`
+mutation UpdateRecipe($recipeId: ID!, $name: String, $description: String, $ingredients: [IngredientInput], $instructions: [String], $cookTime: TimeInput) {
+  updateRecipe(recipeId: $recipeId, name: $name, description: $description, ingredients: $ingredients, instructions: $instructions, cookTime: $cookTime) {
+    name
+  }
+}
+`
+
 export const REMOVE_RECIPE = gql`
 mutation RemoveRecipe($recipeId: ID!, $chefId: ID!) {
   removeRecipe(recipeId: $recipeId, chefId: $chefId) {

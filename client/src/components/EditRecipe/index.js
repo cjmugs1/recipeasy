@@ -1,25 +1,23 @@
-import { React, useState } from "react";
+import { React, useState, useEffect, useRef } from "react";
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import { Form, Input, Button, Upload } from "antd";
+import { idbPromise } from "../../utils/helpers";
 import { useMutation } from "@apollo/client";
-// import { UPDATE_RECIPE } from "../../utils/mutations";
+import { UPDATE_RECIPE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { useParams } from "react-router-dom";
 
 const { TextArea } = Input;
 
 function EditRecipe() {
-    const { id } = useParams();
-    console.log(id)
-    const recipeId = id
 
-    
+const [updateRecipe, {error}] = useMutation(UPDATE_RECIPE);
+  const [form] = Form.useForm();
+  const { id } = useParams();
+  const recipeId = id;
 
-    const [form] = Form.useForm();
-  // adds recipe
-//   const [updateRecipe, { error }] = useMutation(UPDATE_RECIPE);
-
-
+  const [singleRecipe, setRecipe] = useState({});
+  const addIngredientButtonRef = useRef();
 
   const [ingredientsFormData, setIngredientsFormData] = useState({
     name: [],
@@ -39,6 +37,83 @@ function EditRecipe() {
     // tags: [],
     // imageURL: "",
   });
+
+  useEffect(async () => {
+    async function getRecipe() {
+      const recipes = await idbPromise("recipes", "get");
+      const singleRecipe = await recipes.filter(
+        (recipe) => recipe._id === recipeId
+      )[0];
+      setRecipe(singleRecipe);
+    console.log(singleRecipe)
+
+    form.setFields([
+        {
+          name: ["name"],
+          value: singleRecipe.name,
+        },
+        {
+            name: ["description"],
+            value: singleRecipe.description,
+          },
+        {
+          name: ["instructions"],
+          value: singleRecipe.instructions,
+        },
+        {
+            name: ["time-amount"],
+            value: singleRecipe.cookTime.amount,
+        },
+        {
+            name: ["time-unit"],
+            value: singleRecipe.cookTime.unit,
+          },
+      ]);
+      setRecipeFormData({
+        name: singleRecipe.name,
+        description: singleRecipe.description,
+        instructions: singleRecipe.instructions
+      })
+      setTimeFormData({
+        amount: singleRecipe.cookTime.amount,
+        unit: singleRecipe.cookTime.unit
+       });
+
+      const ingredients = singleRecipe.ingredients;
+
+      for (let i = 0; i < ingredients.length; i++) {
+        addIngredientButtonRef.current.click();
+        form.setFields([
+          {
+            name: ["ingredients", i, "quantity"],
+            value: ingredients[i].quantity,
+          },
+          {
+            name: ["ingredients", i, "unit"],
+            value: ingredients[i].unit,
+          },
+          {
+            name: ["ingredients", i, "ingredient"],
+            value: ingredients[i].name,
+          },
+        ]);
+        let quantData = ingredientsFormData["quantity"];
+        quantData[i] = ingredients[i].quantity;
+        setIngredientsFormData({
+          ...ingredientsFormData,
+          ["quantity"]: quantData,
+        });
+        let unitData = ingredientsFormData["unit"];
+        unitData[i] = ingredients[i].unit;
+        setIngredientsFormData({ ...ingredientsFormData, ["unit"]: unitData });
+        let nameData = ingredientsFormData["name"];
+        nameData[i] = ingredients[i].name;
+        setIngredientsFormData({ ...ingredientsFormData, ["name"]: nameData });
+      }
+
+    }
+    getRecipe();
+  }, []);
 
   const handleAddTag = () => {
     let updatedTags = recipeFormData.tags;
@@ -65,7 +140,6 @@ function EditRecipe() {
     ingredients.quantity.push("");
     ingredients.unit.push("");
     setIngredientsFormData(ingredients);
-    console.log(ingredientsFormData);
   };
 
   const handleInputChange = (event) => {
@@ -94,6 +168,7 @@ function EditRecipe() {
       data[index] = value;
 
       setIngredientsFormData({ ...ingredientsFormData, [field]: data });
+      console.log(ingredientsFormData);
       return;
     }
 
@@ -105,11 +180,10 @@ function EditRecipe() {
         field = "unit";
       }
 
-      setTimeFormData({ ...timeFormData, [field]: value});
+      setTimeFormData({ ...timeFormData, [field]: value });
       return;
     }
 
-    console.log(id);
     setRecipeFormData({ ...recipeFormData, [id]: value });
   };
 
@@ -142,14 +216,15 @@ function EditRecipe() {
         cookTime: timeFormData,
       });
       let cookTime = timeFormData;
-      cookTime.amount = Number(cookTime.amount)
-      const { data } = await addNewRecipe({
+      cookTime.amount = Number(cookTime.amount);
+      const { data } = await updateRecipe({
         variables: {
           ...recipeFormData,
           ingredients,
-          userId,
-          originalLanguage: "English",
-          cookTime
+        //   userId,
+        //   originalLanguage: "English",
+          cookTime,
+          recipeId
         },
       });
       console.log(data);
@@ -175,24 +250,7 @@ function EditRecipe() {
     });
     console.log(recipeFormData);
     form.resetFields();
-  };
-
-  const formItemLayout = {
-    labelCol: {
-      xs: { span: 24 },
-      sm: { span: 4 },
-    },
-    wrapperCol: {
-      xs: { span: 24 },
-      sm: { span: 20 },
-    },
-  };
-
-  const formItemLayoutWithOutLabel = {
-    wrapperCol: {
-      xs: { span: 24, offset: 0 },
-      sm: { span: 20, offset: 4 },
-    },
+    window.location.assign('/profile')
   };
 
   return (
@@ -330,6 +388,7 @@ function EditRecipe() {
                       }}
                       style={{ width: "100%" }}
                       icon={<PlusOutlined />}
+                      ref={addIngredientButtonRef}
                     >
                       Add Ingredient
                     </Button>
@@ -349,28 +408,24 @@ function EditRecipe() {
           >
             <TextArea rows={4} />
           </Form.Item>
-          <Form.Item
-            required={true}
-            label="Cooking Time"
-          >
-          <Input.Group compact>
-            <Form.Item
-              required={true}
-              name="time-amount"             
-              onChange={handleInputChange}
-            >
-              <Input placeholder="2" />
-            </Form.Item>
-            <Form.Item
-              required={true}
-              name="time-unit"
-              onChange={handleInputChange}
-            >
-              <Input placeholder="hours"/>
-            </Form.Item>
-          </Input.Group>
+          <Form.Item required={true} label="Cooking Time">
+            <Input.Group compact>
+              <Form.Item
+                required={true}
+                name="time-amount"
+                onChange={handleInputChange}
+              >
+                <Input placeholder="2" />
+              </Form.Item>
+              <Form.Item
+                required={true}
+                name="time-unit"
+                onChange={handleInputChange}
+              >
+                <Input placeholder="hours" />
+              </Form.Item>
+            </Input.Group>
           </Form.Item>
-          
 
           <Form.Item required={false} label="Tags">
             <Form.List name="tags">
@@ -434,7 +489,7 @@ function EditRecipe() {
             </Upload>
           </Form.Item>
           <Form.Item>
-            <Button onClick={handleFormSubmit}>Add Recipe!</Button>
+            <Button onClick={handleFormSubmit}>Save Changes</Button>
           </Form.Item>
         </Form>
       </div>

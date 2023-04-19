@@ -10,8 +10,6 @@ import Auth from "../../utils/auth"
 import { Layout, Col, Row } from 'antd';
 import RecipeCard from "../RecipeCard";
 
-// import { UPDATE_ACCOUNT_NAME, UPDATE_LANGUAGE } from '../utils/actions';
-// import { useAccountContext } from '../utils/GlobalState';
 
 export default function Profile() {
   
