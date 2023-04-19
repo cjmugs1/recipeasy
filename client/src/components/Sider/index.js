@@ -25,7 +25,7 @@ function SiderComponent() {
   //   history.push('/search');
   // };
   return (
-      <div class="side-menu">
+      <div className="side-menu">
         <div className="logo"></div>
         <Menu
           mode="inline"
