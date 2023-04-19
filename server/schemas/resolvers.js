@@ -91,29 +91,26 @@ const resolvers = {
     },
 
     // // args must have all the preexisting fields for this to work
-    // updateRecipe: async (parent, args, context) => {
+    updateRecipe: async (parent, args, context) => {
 
-    //   // ------------
-    //   // test purposes     
-    //   const testUser = {
-    //     name: "test",
-    //     _id: "643079e4d34ddeec19b3d46f"
-    //   }
-    //   context.user = testUser
-    //   // ------------
+      if (context.user) {
+        const userId = context.user._id
 
-    //   if (context.user) {
-    //     const userId = context.user._id
+        console.log(args)
+        const updatedRecipe = await Recipe.findByIdAndUpdate(args.recipeId, 
+          {
+            name: args.name,
+            description: args.description,
+            ingredients: args.ingredients,
+            instructions: args.instructions,
+            cookTime: args.cookTime,            
+          }
+          
+        )
+        return updatedRecipe
+      }
 
-    //     console.log(args)
-    //     // const updatedRecipe = await Recipe.findByIdAndUpdate(_id, 
-    //     //   {
-
-    //     //   }
-    //     // )
-    //   }
-
-    // }
+    },
 
     removeRecipe: async (parent, {recipeId, chefId}, context) => {
       console.log(context.user)

@@ -13,6 +13,7 @@ import Search from './pages/Search';
 import Recipe from './pages/Recipe';
 import AddRecipe from './components/AddRecipe';
 import ProtectedRoutes from './utils/ProtectedRoutes'
+import EditRecipe from './components/EditRecipe';
 
 // import { useRecipeasyReducer } from './utils/reducers';
 // import NoMatch from './pages/NoMatch';
@@ -61,6 +62,7 @@ function App() {
               <Route path="/profile" element={<ProtectedRoutes><Profile /></ProtectedRoutes>} />
               <Route path="/search" element={<ProtectedRoutes><Search /></ProtectedRoutes>} />
               <Route path="/recipes/:id" element={<ProtectedRoutes><Recipe /></ProtectedRoutes>} />
+              <Route path="/edit-recipe/:id" element={<ProtectedRoutes><EditRecipe /></ProtectedRoutes>} />
             </Routes>
           </StoreProvider>
         </div>
