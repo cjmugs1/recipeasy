@@ -4,7 +4,11 @@ import HeaderComponent from '../HeaderComponent';
 import SiderComponent from '../Sider';
 import FooterComponent from '../FooterComponent';
 const { Content, Sider } = Layout;
-
+const styles = {
+  layout: {
+    height: "100vh"
+  }
+}
 // Update the function declaration
 function LayoutComponent ({ children }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -13,9 +17,9 @@ function LayoutComponent ({ children }) {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <SiderComponent />
       </Sider>
-      <Layout>
+      <Layout className="d-flex flex-column" style={styles.layout}>
         <HeaderComponent />
-        <Content style={{ margin: '0 16px' }}>
+        <Content style={{ flex: "1 0 auto" }}>
           {children}
         </Content>
         <FooterComponent />

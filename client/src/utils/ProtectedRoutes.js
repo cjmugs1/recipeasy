@@ -8,7 +8,7 @@ const ProtectedRoute = (props) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const checkUserToken = () => {
         const userToken = Auth.getToken()
-        if (!userToken || userToken === 'undefined') {
+        if (!userToken || userToken === 'undefined' || Auth.isTokenExpired(userToken)) {
             setIsLoggedIn(false);
             return navigate('/login');
         }
