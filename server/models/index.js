@@ -1,4 +1,3 @@
-// update imports 
 const User = require('./User');
 const RecipeTag = require('./RecipeTag')
 const Recipe = require('./Recipes')

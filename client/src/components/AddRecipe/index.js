@@ -1,17 +1,21 @@
 // form component allowing users to add new recipes with field's for recipe title, description, ingredients, instructions, and photo
 
 import { React, useState } from "react";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import { Form, Input, Button, Upload } from "antd";
+
 import { useMutation } from "@apollo/client";
 import { ADD_RECIPE } from "../../utils/mutations";
+
 import Auth from "../../utils/auth";
+
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Upload } from "antd";
+
 
 const { TextArea } = Input;
 
 function addRecipe() {
   const [form] = Form.useForm();
-  // adds recipe
+
   const [addNewRecipe, { error }] = useMutation(ADD_RECIPE);
 
   const [ingredientsFormData, setIngredientsFormData] = useState({
@@ -71,7 +75,6 @@ function addRecipe() {
       return setRecipeFormData({ ...recipeFormData, ["tags"]: newTags });
     }
 
-    // if these are ingredients, we need to make it an array
     if (id.includes("ingredients")) {
       const index = id.match(/\d+/)[0];
       let field;
@@ -122,7 +125,6 @@ function addRecipe() {
     console.log(ingredients);
 
     try {
-      // add user id
       const userToken = Auth.getProfile();
       const userId = userToken.data._id;
       console.log(userId);

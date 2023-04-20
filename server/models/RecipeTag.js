@@ -1,6 +1,4 @@
-// add cuisine tags to reference in recipe model
-
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const RecipeTagSchema = new mongoose.Schema({
   name: {
@@ -11,11 +9,11 @@ const RecipeTagSchema = new mongoose.Schema({
   recipes: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Recipe',
-    }
-  ]
+      ref: "Recipe",
+    },
+  ],
 });
 
-const RecipeTag = mongoose.model('RecipeTag', RecipeTagSchema);
+const RecipeTag = mongoose.model("RecipeTag", RecipeTagSchema);
 
 module.exports = RecipeTag;
