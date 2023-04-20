@@ -4,6 +4,9 @@
 
 Recipeasy is a recipe app that allows users to search, save, and share recipes. Users can also create their own recipes and add them to the database.
 
+## Deployed Application
+This is a fully deployed app on Heroku. You can access the app here: [Recipeasy](https://recipeasy-cookbook.herokuapp.com/)
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)
@@ -16,9 +19,6 @@ Recipeasy is a recipe app that allows users to search, save, and share recipes. 
 - [Questions](#questions)
 - [Contributors](#contributors)
 
-## 🚀 Getting Started
-
-This is a fully deployed app on Heorku. You can access the app here: [Recipeasy](https://recipeasy-app.herokuapp.com/)
 
 ## 📖 Usage
 
