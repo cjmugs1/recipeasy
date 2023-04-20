@@ -18,9 +18,6 @@ require('dotenv').config({ path: './.env' });
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Serve up static assets
-// app.use('/images', express.static(path.join(__dirname, '../client/images')));
-
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
   //catch all routes that are not defined

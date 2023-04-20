@@ -1,11 +1,5 @@
-// add a username and language (language set to English for MVP)
-// combine firstName and lastName into just name
-// add a "recipeID" array instead of "order" for own recipes
-// -------------------------
-
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-
 
 const UserSchema = new mongoose.Schema({
   username: {
@@ -23,7 +17,6 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
-    // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please use a valid email address']
   },
   password: {
     type: String,
@@ -43,7 +36,7 @@ const UserSchema = new mongoose.Schema({
   },
   language: {
     type: String,
-    default: "en"
+    default: "en",
   },
   recipes: [
     //recipe array

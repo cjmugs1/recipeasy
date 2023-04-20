@@ -7,8 +7,9 @@ import { QUERY_ALL_RECIPES } from '../../utils/queries';
 
 import { idbPromise } from '../../utils/helpers';
 
-import { Col, Row } from 'antd';
 import RecipeCard from "../RecipeCard";
+
+import { Col, Row } from 'antd';
 
 
 function RecipeBrowser() {

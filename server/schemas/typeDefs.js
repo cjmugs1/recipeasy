@@ -1,8 +1,4 @@
-//after building resolvers, match them to the typeDefs
-// add definitions for each model
-// make sure to keep Auth resolver
-
-const { gql } = require('apollo-server-express');
+const { gql } = require("apollo-server-express");
 
 const typeDefs = gql`
   type User {
@@ -10,8 +6,8 @@ const typeDefs = gql`
     username: String
     name: String
     email: String
-    password: String,
-    language: String,
+    password: String
+    language: String
     recipes: [Recipe]
   }
 
@@ -20,7 +16,7 @@ const typeDefs = gql`
     unit: String
     name: String
   }
-  
+
   type CookTime {
     amount: Int
     unit: String
@@ -65,7 +61,7 @@ const typeDefs = gql`
     amount: Int
     unit: String
   }
-  
+
   type Query {
     allUsers: [User]
     singleUser(userId: ID!): User
@@ -76,52 +72,45 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(
-      name: String!, 
-      username: String, 
-      email: String!, 
+      name: String!
+      username: String
+      email: String!
       password: String!
     ): Auth
-    
+
     updateUser(
-      name: String, 
-      username: String, 
-      email: String, 
+      name: String
+      username: String
+      email: String
       password: String
     ): User
-    
+
     addRecipe(
-      userId: ID!,
-      name: String!, 
-      description: String!, 
-      ingredients: [IngredientInput]!, 
-      instructions: String!, 
-      cookTime: TimeInput!, 
-      imageURL: String, 
-      originalLanguage: String!,
+      userId: ID!
+      name: String!
+      description: String!
+      ingredients: [IngredientInput]!
+      instructions: String!
+      cookTime: TimeInput!
+      imageURL: String
+      originalLanguage: String!
       tags: [String]
     ): User
-    
+
     updateRecipe(
-      recipeId: ID!, 
-      name: String, 
-      description: String, 
-      ingredients: [IngredientInput], 
-      instructions: [String], 
-      cookTime: TimeInput,  
-      imageURL: String,
+      recipeId: ID!
+      name: String
+      description: String
+      ingredients: [IngredientInput]
+      instructions: [String]
+      cookTime: TimeInput
+      imageURL: String
       tags: [String]
     ): Recipe
 
-    removeRecipe(
-      recipeId: ID!, 
-      chefId: ID!
-    ): User
+    removeRecipe(recipeId: ID!, chefId: ID!): User
 
-    login(
-      email: String!, 
-      password: String!
-    ): Auth
-
+    login(email: String!, password: String!): Auth
   }
 `;
 

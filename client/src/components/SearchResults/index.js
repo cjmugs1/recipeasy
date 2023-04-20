@@ -1,14 +1,17 @@
-// SearchResults component to display search results based on user's input, showing recipes in a list or grid view/
-// card
+// SearchResults component to display search results based on user's input, showing recipes in a list or grid view/card
 
 import React, { useEffect } from "react";
 // import SearchResults from "../SearchResults";
 import { useStoreContext } from "../../utils/GlobalState";
+
 import { UPDATE_RECIPES } from "../../utils/actions";
 import { useQuery } from "@apollo/client";
 import { QUERY_ALL_RECIPES } from "../../utils/queries";
+
 import { idbPromise } from "../../utils/helpers";
+
 import spinner from "../../assets/spinner.gif";
+
 
 function SearchResults() {
   const [state, dispatch] = useStoreContext();

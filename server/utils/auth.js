@@ -1,9 +1,6 @@
-// update any information to verify user authentication
-
-const jwt = require('jsonwebtoken');
-// possibly make environment variable for security
-const secret = 'mysecretsshhhhh';
-const expiration = '2h';
+const jwt = require("jsonwebtoken");
+const secret = "mysecretsshhhhh";
+const expiration = "2h";
 
 module.exports = {
   authMiddleware: function ({ req }) {
@@ -12,7 +9,7 @@ module.exports = {
 
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
-      token = token.split(' ').pop().trim();
+      token = token.split(" ").pop().trim();
     }
 
     if (!token) {
@@ -21,12 +18,12 @@ module.exports = {
 
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
-      console.log(data)
+      console.log(data);
       req.user = data;
     } catch {
-      console.log('Invalid token');
+      console.log("Invalid token");
     }
-    console.log(req.user)
+    console.log(req.user);
     return req;
   },
 

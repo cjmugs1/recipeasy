@@ -1,1 +1,0 @@
-// component for plugging in GoogleAuthentication component

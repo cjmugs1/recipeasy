@@ -1,33 +1,33 @@
 /* styling for Footer/index.js */
+
 footer {
-    
-    background-color: #E7693E;
-    color: white;
-    padding: 10px;
-    text-align: center;
+  background-color: #E7693E;
+  color: white;
+  padding: 10px;
+  text-align: center;
 }
 
 h4 {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .social-icons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
   
-  .social-icons a {
-    display: inline-block;
-    margin: 0 10px;
-    color: #fff;
-    font-size: 20px;
-  }
+.social-icons a {
+  display: inline-block;
+  margin: 0 10px;
+  color: #fff;
+  font-size: 20px;
+}
   
-  .social-icons a i {
-    transition: all 0.3s ease-in-out;
-  }
+.social-icons a i {
+  transition: all 0.3s ease-in-out;
+}
   
-  .social-icons a:hover i {
-    transform: scale(1.2);
-  }
+.social-icons a:hover i {
+  transform: scale(1.2);
+}
