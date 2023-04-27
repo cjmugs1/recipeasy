@@ -54,11 +54,13 @@ This project is licensed under the MIT License.
 
 ## 📸 Screenshots
 
-![Screenshot of Recipeasy](./client/public/images/recipeasy-screenshot.png)
+![Screenshot of Recipeasy](./client/public/images/homepage.jpg)
+![Screenshot of Recipeasy](./client/public/images/login.jpg)
+![Screenshot of Recipeasy](./client/public/images/addRecipe.jpg)
 
 ## 🔗 Links
 
-- [Deployed App](https://recipeasy-app.herokuapp.com/)
+- [Deployed App](https://recipeasy-cookbook.herokuapp.com/)
 - [GitHub Repo](https://github.com/cjmugs1/recipeasy/)
 
 ## ❓ Questions
